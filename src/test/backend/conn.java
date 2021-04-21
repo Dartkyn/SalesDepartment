@@ -195,8 +195,74 @@ public class conn {
 	  }
 	
 	  System.out.println("Таблица выведена");
+	  List<InvoiceString> InvoiceStringList  = new LinkedList<>();
+	  resSet = statmt.executeQuery("SELECT * FROM InvoiceString");
+
+	  while(resSet.next())
+	  {
+		 Short id = (short) resSet.getInt("InvoiceStringID");
+		 Short Amount = (short) resSet.getInt("Amount");
+		 Double CostUnitProduct = resSet.getDouble("CostUnitProduct");
+		 Double GrossWeight = resSet.getDouble("GrossWeight");
+		 Double NetWeight = resSet.getDouble("NetWeight");
+		 Double VAT = resSet.getDouble("VAT");
+		 Short InvoiceHeaderID = (short) resSet.getInt("InvoiceHeaderID");
+		 Short ProductID = (short) resSet.getInt("ProductID");
+		 Short StructureUnitID = (short) resSet.getInt("StructureUnitID");
+		 Short PackageID = (short) resSet.getInt("PackageID");
+		 InvoiceStringList.add(new InvoiceString(id,Amount, CostUnitProduct,InvoiceHeaderID, ProductID, GrossWeight, NetWeight, VAT, StructureUnitID, PackageID));
+	  }	
+	
+	  for (InvoiceString test:InvoiceStringList)
+	  {
+	   System.out.println(test.toString());
+	  }
+	
+	  System.out.println("Таблица выведена");
 	  
+	  List<Contract> ContractList  = new LinkedList<>();
+	  resSet = statmt.executeQuery("SELECT * FROM Contract");
+
+	  while(resSet.next())
+	  {
+		 Short id = (short) resSet.getInt("Contract_ID");
+		 Short Number = (short) resSet.getInt("Number");
+		 String ContractDate = resSet.getString("ContractDate");
+		 String Account = resSet.getString("Account");
+		 Short CompanyID = (short) resSet.getInt("Company_ID");
+		 Short CityID = (short) resSet.getInt("CityID");
+		 Short BankID = (short) resSet.getInt("BankID");
+		 ContractList.add(new Contract(id,Number, ContractDate, CompanyID, Account, CityID, BankID));
+	  }	
+	
+	  for (Contract test:ContractList)
+	  {
+	   System.out.println(test.toString());
+	  }
+	
+	  System.out.println("Таблица выведена");
 	  
+	  List<DeliveryShedule> DeliverySheduleList  = new LinkedList<>();
+	  resSet = statmt.executeQuery("SELECT * FROM DeliveryShedule");
+
+	  while(resSet.next())
+	  {
+		 Short id = (short) resSet.getInt("DeliverySheduleID");
+		 Short Amount = (short) resSet.getInt("Amount");
+		 Double Cost = resSet.getDouble("Cost");
+		 String DeliveryDate = resSet.getString("DeliveryDate");
+		 Short ContractID = (short) resSet.getInt("Contract_ID");
+		 Short ProductID = (short) resSet.getInt("ProductID"); 
+		 Short PackageID = (short) resSet.getInt("PackageID"); 
+		 DeliverySheduleList.add(new DeliveryShedule(id,DeliveryDate, Amount,ContractID, ProductID,Cost, PackageID));
+	  }	
+	
+	  for (DeliveryShedule test:DeliverySheduleList)
+	  {
+	   System.out.println(test.toString());
+	  }
+	
+	  System.out.println("Таблица выведена");
     }
 	
 		// --------Закрытие--------

@@ -1,11 +1,12 @@
 package test.backend;
 
 public class InvoiceString {
-	public InvoiceString(Short id, Short amount, Short invoiceHeaderID, Short productID, Double grossWeight,
+	public InvoiceString(Short id, Short amount, Double costUnitProduct, Short invoiceHeaderID, Short productID, Double grossWeight,
 			Double netWeight, Double vAT, Short structureUnitID, Short packageID) {
 		super();
 		this.id = id;
-		setAmount(amount);
+		Amount = amount;
+		CostUnitProduct = costUnitProduct;
 		InvoiceHeaderID = invoiceHeaderID;
 		ProductID = productID;
 		GrossWeight = grossWeight;
@@ -16,6 +17,7 @@ public class InvoiceString {
 	}
 	private Short id;
 	private Short Amount;
+	private Double CostUnitProduct;
 	private Short InvoiceHeaderID;
 	private Short ProductID;
 	private Double GrossWeight;
@@ -24,6 +26,11 @@ public class InvoiceString {
 	private Short StructureUnitID;
 	private Short PackageID;
 	
+	@Override
+	public String toString() 
+	{
+		return Short.toString(this.id) + " " + this.Amount + " " + this.CostUnitProduct + " " + this.InvoiceHeaderID + " " + this.ProductID + " " + this.GrossWeight + " " + this.NetWeight + " " + this.VAT + " " + this.StructureUnitID + " " + this.PackageID;
+	}
 	
 	public Short getId() {
 		return id;
@@ -78,5 +85,11 @@ public class InvoiceString {
 	}
 	public void setAmount(Short amount) {
 		Amount = amount;
+	}
+	public Double getCostUnitProduct() {
+		return CostUnitProduct;
+	}
+	public void setCostUnitProduct(Double costUnitProduct) {
+		CostUnitProduct = costUnitProduct;
 	}
 }
