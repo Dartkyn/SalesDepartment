@@ -229,20 +229,12 @@ public class WorkForm {
 				"НДС"
 				};
 		String[][] data= {
-				{"","","","","","","","","","",""},
-				{"","","","","","","","","","",""},
-				{"","","","","","","","","","",""},
-				{"","","","","","","","","","",""},
 				{"","","","","","","","","","",""}
 				};
 		invRowTable = new JTable(data, coulmnHeader);
 		invRowTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "", "", "", "", "", "", "", ""},
-				{"", "", "", "", "", "", "", "", ""},
-				{"", "", "", "", "", "", "", "", ""},
-				{"", "", "", "", "", "", "", "", ""},
-				{"", "", "", "", "", "", "", "", ""},
+				{"", "", "", "", "", "", "", "", ""}
 			},
 			new String[] {
 				"\u2116 \u043F/\u043F", "\u0422\u043E\u0432\u0430\u0440", "\u0415\u0434. \u0438\u0437\u043C.", "\u0412\u0438\u0434 \u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438", "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E", "\u041C\u0430\u0441\u0441\u0430 \u0431\u0440\u0443\u0442\u0442\u043E", "\u041C\u0430\u0441\u0441\u0430 \u043D\u0435\u0442\u0442\u043E", "\u0426\u0435\u043D\u0430, \u0440\u0443\u0431. \u043A\u043E\u043F.", "\u041D\u0414\u0421"
@@ -542,18 +534,11 @@ public class WorkForm {
 				};
 		String[][] dataAddContract= {
 				{"","","","","",""},
-				{"","","","","",""},
-				{"","","","","",""},
-				{"","","","","",""},
-				{"","","","","",""}
 				};
 		delivShedTable = new JTable(dataAddContract,coulmnAddContractHeader);
+		delivShedTable.setCellSelectionEnabled(true);
 		delivShedTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "", "", "", "", ""},
-				{"", "", "", "", "", ""},
-				{"", "", "", "", "", ""},
-				{"", "", "", "", "", ""},
 				{"", "", "", "", "", ""},
 			},
 			new String[] {
@@ -587,6 +572,7 @@ public class WorkForm {
 		packageColumn.setCellEditor(new DefaultCellEditor(packageComboBox));
 		
 		JButton btnNewContractStrButton = new JButton("Добавить строку");
+		
 		GridBagConstraints gbc_btnNewContractStrButton = new GridBagConstraints();
 		gbc_btnNewContractStrButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewContractStrButton.insets = new Insets(0, 0, 5, 5);
@@ -595,6 +581,7 @@ public class WorkForm {
 		newContractPanel.add(btnNewContractStrButton, gbc_btnNewContractStrButton);
 		
 		JButton btnDelContractString = new JButton("Удалить строку");
+
 		GridBagConstraints gbc_btnDelContractString = new GridBagConstraints();
 		gbc_btnDelContractString.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDelContractString.insets = new Insets(0, 0, 5, 5);
@@ -757,6 +744,34 @@ public class WorkForm {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
+			}
+		});
+		btnInsertInvRow.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 DefaultTableModel model = (DefaultTableModel) invRowTable.getModel();
+			     model.addRow(new Object[]{"", "", "","",""});
+			}
+		});
+		btnDelInvRow.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 DefaultTableModel model = (DefaultTableModel) invRowTable.getModel();
+				 model.removeRow(invRowTable.getSelectedRow());
+			}
+		});
+		btnNewContractStrButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel model = (DefaultTableModel) delivShedTable.getModel();
+			    model.addRow(new Object[]{"", "", "","",""});
+			}
+		});
+		btnDelContractString.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 DefaultTableModel model = (DefaultTableModel) delivShedTable.getModel();
+				 model.removeRow(delivShedTable.getSelectedRow());
 			}
 		});
 	}
