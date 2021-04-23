@@ -1,4 +1,5 @@
 package test.backend;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,43 +8,16 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class conn {
-	public static Connection conn;
-	public static Statement statmt;
-	public static ResultSet resSet;
-	//private static MasterOfTables new_master = new MasterOfTables();
-	// --------ПОДКЛЮЧЕНИЕ К БАЗЕ ДАННЫХ--------
-	public static void Conn() throws ClassNotFoundException, SQLException 
-	   {
-		   conn = null;
-		   Class.forName("org.sqlite.JDBC");
-		   conn = DriverManager.getConnection("jdbc:sqlite:alpha.sqlite3");
-		   
-		   System.out.println("База Подключена!");
-	   }
-	
-	// --------Создание таблицы--------
-	public static void CreateDB() throws ClassNotFoundException, SQLException
-	   {
-		statmt = conn.createStatement();
-		statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' text, 'phone' INT);");
-		
-		System.out.println("Таблица создана или уже существует.");
-	   }
-	
-	// --------Заполнение таблицы--------
-	public static void WriteDB() throws SQLException
-	{
-		   statmt.execute("INSERT INTO 'users' ('name', 'phone') VALUES ('Petya', 125453); ");
-		   statmt.execute("INSERT INTO 'users' ('name', 'phone') VALUES ('Vasya', 321789); ");
-		   statmt.execute("INSERT INTO 'users' ('name', 'phone') VALUES ('Masha', 456123); ");
-		  
-		   System.out.println("Таблица заполнена");
-	}
-	
-	// -------- Вывод таблицы--------
-	public static void ReadDB() throws ClassNotFoundException, SQLException
-	   {
+public class MasterOfTables {
+	public MasterOfTables() throws ClassNotFoundException, SQLException {
+		super();
+		Connection conn;
+		Statement statmt;
+		ResultSet resSet;
+		conn = null;
+		Class.forName("org.sqlite.JDBC");
+		conn = DriverManager.getConnection("jdbc:sqlite:alpha.sqlite3");
+		System.out.println("База Подключена!");
 		statmt = conn.createStatement();
 		List<measureunit> MeasureUnitList  = new LinkedList<>();
 		resSet = statmt.executeQuery("SELECT * FROM MeasureUnit");
@@ -55,7 +29,7 @@ public class conn {
 			 String code = resSet.getString("MeasureUnitCode");
 			 MeasureUnitList.add(new measureunit(id,name,code));
 		}	
-		//new_master.setUnitz(MeasureUnitList);//
+		this.unitz = MeasureUnitList;//
 		for (measureunit test:MeasureUnitList)
 		{
 		System.out.println(test.toString());
@@ -72,7 +46,7 @@ public class conn {
 			 String name = resSet.getString("CityName");
 			 CityList.add(new City(id,name));
 		}	
-		//new_master.setCitiez(CityList);//
+		this.citiez = CityList;//
 		for (City test:CityList)
 		{
 		System.out.println(test.toString());
@@ -92,7 +66,7 @@ public class conn {
 			 String INN = resSet.getString("INN");
 			 BankList.add(new Bank(id,name,CorrespondingAccount,BIK,INN));
 		}	
-		//new_master.setBankz(BankList);//
+		this.bankz = BankList;//
 		for (Bank test:BankList)
 		{
 		System.out.println(test.toString());
@@ -116,7 +90,7 @@ public class conn {
 		 String LawAdress = resSet.getString("LawAdress");
 		 CompanyList.add(new Company(id,name,INN, OGRN, PhoneNumber, Email, KPP, OKPO, LawAdress));
 	  }	
-	//new_master.setCompaniez(CompanyList);//
+	this.companiez = CompanyList;//
 	  for (Company test:CompanyList)
 	  {
 	   System.out.println(test.toString());
@@ -134,7 +108,7 @@ public class conn {
 		 PackageList.add(new Package(id,name));
 	  }	
 	 
-	  //new_master.setPackagez(PackageList);//
+	  this.packagez = PackageList;//
 	  
 	  for (Package test:PackageList)
 	  {
@@ -154,7 +128,7 @@ public class conn {
 		 ProductList.add(new Product(id,name, ProductCode));
 	  }	
 	
-	  //new_master.setProductz(ProductList);//
+	  this.productz = ProductList;//
 	  
 	  for (Product test:ProductList)
 	  {
@@ -174,7 +148,7 @@ public class conn {
 		 SubdivisionList.add(new Subdivision(id,name, SubdivisionCode));
 	  }	
 	
-	  //new_master.setSubDiviz(SubdivisionList);//
+	  this.subDiviz = SubdivisionList;//
 	  
 	  for (Subdivision test:SubdivisionList)
 	  {
@@ -195,7 +169,7 @@ public class conn {
 		 InvoiceHeaderList.add(new InvoiceHeader(id,Number,InvoiceDate, SubdivisionId));
 	  }	
 	
-	  //new_master.setInvHeaderz(InvoiceHeaderList);//
+	  this.invHeaderz = InvoiceHeaderList;//
 	  
 	  for (InvoiceHeader test:InvoiceHeaderList)
 	  {
@@ -221,7 +195,7 @@ public class conn {
 		 InvoiceStringList.add(new InvoiceString(id,Amount, CostUnitProduct,InvoiceHeaderID, ProductID, GrossWeight, NetWeight, VAT, StructureUnitID, PackageID));
 	  }	
 	
-	  //new_master.setInvStringz(InvoiceStringList);//
+	  this.invStringz = InvoiceStringList;//
 	  
 	  for (InvoiceString test:InvoiceStringList)
 	  {
@@ -245,7 +219,7 @@ public class conn {
 		 ContractList.add(new Contract(id,Number, ContractDate, CompanyID, Account, CityID, BankID));
 	  }	
 	  
-	  //new_master.setContractz(ContractList);
+	  this.contractz = ContractList;
 	
 	  for (Contract test:ContractList)
 	  {
@@ -269,7 +243,7 @@ public class conn {
 		 DeliverySheduleList.add(new DeliveryShedule(id,DeliveryDate, Amount,ContractID, ProductID,Cost, PackageID));
 	  }	
 	
-	  //new_master.setDelivShedulz(DeliverySheduleList);
+	  this.delivShedulz = DeliverySheduleList;
 	  
 	  
 	  for (DeliveryShedule test:DeliverySheduleList)
@@ -279,17 +253,99 @@ public class conn {
 	
 	  System.out.println("Таблица выведена");
 	  
-	  //System.out.println(//new_master.getCitiez());
-    }
+		conn.close();
+		statmt.close();
+		resSet.close();
+				
+	}
+	/** Поле список банков*/
+	private List<Bank> bankz;
+	/** Поле список городов*/
+	private List<City> citiez;
+	/** Поле список компаний*/
+	private List<Company> companiez;
+	/** Поле список договоров*/
+	private List<Contract> contractz;
+	/** Поле список графиков поставки*/
+	private  List<DeliveryShedule> delivShedulz;
+	/** Поле список заголовков накладной*/
+	private  List<InvoiceHeader> invHeaderz;
+	/** Поле список строк накладной*/
+	private  List<InvoiceString> invStringz;
+	/** Поле список единиц измерений*/
+	private  List<measureunit> unitz;
+	/** Поле список упаковок*/
+	private  List<Package> packagez;
+	/** Поле список товаров*/
+	private  List<Product> productz;
+	/** Поле список подразделений*/
+	private  List<Subdivision> subDiviz;
 	
-		// --------Закрытие--------
-		public static void CloseDB() throws ClassNotFoundException, SQLException
-		   {
-			conn.close();
-			statmt.close();
-			resSet.close();
-			
-			System.out.println("Соединения закрыты");
-		   }
-
+	
+	public List<Bank> getBankz() {
+		return bankz;
+	}
+	public void setBankz(List<Bank> bankz) {
+		this.bankz = bankz;
+	}
+	public List<City> getCitiez() {
+		return citiez;
+	}
+	public void setCitiez(List<City> citiez) {
+		this.citiez = citiez;
+	}
+	public List<Company> getCompaniez() {
+		return companiez;
+	}
+	public void setCompaniez(List<Company> companiez) {
+		this.companiez = companiez;
+	}
+	public List<Contract> getContractz() {
+		return contractz;
+	}
+	public void setContractz(List<Contract> contractz) {
+		this.contractz = contractz;
+	}
+	public List<DeliveryShedule> getDelivShedulz() {
+		return delivShedulz;
+	}
+	public void setDelivShedulz(List<DeliveryShedule> delivShedulz) {
+		this.delivShedulz = delivShedulz;
+	}
+	public List<InvoiceHeader> getInvHeaderz() {
+		return invHeaderz;
+	}
+	public void setInvHeaderz(List<InvoiceHeader> invHeaderz) {
+		this.invHeaderz = invHeaderz;
+	}
+	public List<InvoiceString> getInvStringz() {
+		return invStringz;
+	}
+	public void setInvStringz(List<InvoiceString> invStringz) {
+		this.invStringz = invStringz;
+	}
+	public List<measureunit> getUnitz() {
+		return unitz;
+	}
+	public void setUnitz(List<measureunit> unitz) {
+		this.unitz = unitz;
+	}
+	public List<Package> getPackagez() {
+		return packagez;
+	}
+	public void setPackagez(List<Package> packagez) {
+		this.packagez = packagez;
+	}
+	public List<Product> getProductz() {
+		return productz;
+	}
+	public void setProductz(List<Product> productz) {
+		this.productz = productz;
+	}
+	public List<Subdivision> getSubDiviz() {
+		return subDiviz;
+	}
+	public void setSubDiviz(List<Subdivision> subDiviz) {
+		this.subDiviz = subDiviz;
+	}
 }
