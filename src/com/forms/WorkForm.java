@@ -22,6 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.control.Controller;
+import com.control.ControllerImplement;
+
 public class WorkForm {
 
 	private JFrame frame;
@@ -32,7 +35,7 @@ public class WorkForm {
 	private JTable delivShedTable;
 	private JTable table_1;
 	private JTextField textField;
-
+	private static Controller controller;
 	/**
 	 * Launch the application.
 	 */
@@ -41,6 +44,7 @@ public class WorkForm {
 			@Override
 			public void run() {
 				try {
+					controller = new ControllerImplement();
 					WorkForm window = new WorkForm();
 					window.frame.setVisible(true);
 					window.frame.setTitle("АРМ специалиста отдела сбыта");
@@ -219,7 +223,7 @@ public class WorkForm {
 		newInvocePanel.add(scrollInvoiceNewPane, gbc_scrollInvoiceNewPane);
 		String[] coulmnHeader= {
 				"№ п/п",
-				"Товар",
+				"Товар, код",
 				"Ед. изм.",
 				"Вид упаковки",
 				"Количество",
@@ -526,7 +530,7 @@ public class WorkForm {
 		newContractPanel.add(scrollPane, gbc_scrollPane);
 		String[] coulmnAddContractHeader= {
 				"№ п/п",
-				"Товар",
+				"Товар, код",
 				"Вид упаковки",
 				"Количество товара к отгрузке",
 				"Цена, руб. коп.",
