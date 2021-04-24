@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -95,7 +96,13 @@ public class MainForm {
 		btnStartWork.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				WorkForm wkFowrm = new WorkForm();
+				WorkForm wkFowrm = null;
+				try {
+					wkFowrm = new WorkForm();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				wkFowrm.main(null);
 			}
 		});

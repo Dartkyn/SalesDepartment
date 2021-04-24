@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -18,9 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.text.MaskFormatter;
 
 import com.control.Controller;
 import com.control.ControllerImplement;
@@ -35,14 +36,32 @@ import test.backend.measureunit;
 public class WorkForm {
 
 	private JFrame frame;
-	private JTextField numberInvTextField;
+	private JFormattedTextField numberInvTextField;
 	private JTable invRowTable;
 	private JTable allInvTable;
-	private JTextField numberContractTextField;
+	private JFormattedTextField numberContractTextField;
 	private JTable delivShedTable;
 	private JTable table_1;
-	private JTextField textField;
+	private JFormattedTextField textField;
 	private static Controller controller;
+	private int invCount = 1;
+	private int contrCount = 1;
+	public int getContrCount() {
+		return contrCount;
+	}
+
+	public void setContrCount(int contrCount) {
+		this.contrCount = contrCount;
+	}
+
+	public int getInvCount() {
+		return invCount;
+	}
+
+	public void setInvCount(int invCount) {
+		this.invCount = invCount;
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -65,15 +84,17 @@ public class WorkForm {
 
 	/**
 	 * Create the application.
+	 * @throws ParseException 
 	 */
-	public WorkForm() {
+	public WorkForm() throws ParseException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws ParseException 
 	 */
-	private void initialize() {
+	private void initialize() throws ParseException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1188, 488);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -187,7 +208,7 @@ public class WorkForm {
 		gbc_lblNewLabel_3.gridy = 1;
 		newInvocePanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		numberInvTextField = new JTextField();
+		numberInvTextField = new JFormattedTextField(new MaskFormatter("3-######-##"));
 		GridBagConstraints gbc_numberInvTextField = new GridBagConstraints();
 		gbc_numberInvTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_numberInvTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -204,7 +225,7 @@ public class WorkForm {
 		gbc_lblNewLabel_4_1.gridy = 1;
 		newInvocePanel.add(lblNewLabel_4_1, gbc_lblNewLabel_4_1);
 		
-		JFormattedTextField dateInvFormattedTextField = new JFormattedTextField();
+		JFormattedTextField dateInvFormattedTextField = new JFormattedTextField(new MaskFormatter("##.##.####"));
 		dateInvFormattedTextField.setColumns(10);
 		GridBagConstraints gbc_dateInvFormattedTextField = new GridBagConstraints();
 		gbc_dateInvFormattedTextField.insets = new Insets(0, 0, 5, 5);
@@ -245,12 +266,27 @@ public class WorkForm {
 		invRowTable = new JTable(data, coulmnHeader);
 		invRowTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "", "", "", "", "", "", "", ""},
+				{null, "", "", "", null, null, null, null, null},
 			},
 			new String[] {
 				"\u2116 \u043F/\u043F", "\u0422\u043E\u0432\u0430\u0440", "\u0415\u0434. \u0438\u0437\u043C.", "\u0412\u0438\u0434 \u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438", "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E", "\u041C\u0430\u0441\u0441\u0430 \u0431\u0440\u0443\u0442\u0442\u043E", "\u041C\u0430\u0441\u0441\u0430 \u043D\u0435\u0442\u0442\u043E", "\u0426\u0435\u043D\u0430, \u0440\u0443\u0431. \u043A\u043E\u043F.", "\u041D\u0414\u0421"
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, Object.class, Object.class, Object.class, Integer.class, Double.class, Double.class, Double.class, Double.class
+			};
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, true, true, true, true, true, true, true, true
+			};
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		invRowTable.getColumnModel().getColumn(0).setPreferredWidth(50);
 		invRowTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		invRowTable.getColumnModel().getColumn(1).setPreferredWidth(152);
@@ -268,6 +304,7 @@ public class WorkForm {
 		invRowTable.getColumnModel().getColumn(7).setMaxWidth(250);
 		invRowTable.getColumnModel().getColumn(8).setMaxWidth(75);
 		scrollInvoiceNewPane.setViewportView(invRowTable);
+		invRowTable.setValueAt(invCount, 0, 0);
 		JComboBox<Product> comboBox = new JComboBox<Product>();
 		for(Product product:controller.getProduct())
 		{
@@ -424,7 +461,7 @@ public class WorkForm {
 		gbc_label_3.gridy = 1;
 		newContractPanel.add(label_3, gbc_label_3);
 		
-		numberContractTextField = new JTextField();
+		numberContractTextField = new JFormattedTextField(new MaskFormatter("1-######-##"));
 		GridBagConstraints gbc_numberContractTextField = new GridBagConstraints();
 		gbc_numberContractTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_numberContractTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -441,7 +478,7 @@ public class WorkForm {
 		gbc_label_3_1.gridy = 1;
 		newContractPanel.add(label_3_1, gbc_label_3_1);
 		
-		JFormattedTextField dateContrFormattedTextField = new JFormattedTextField();
+		JFormattedTextField dateContrFormattedTextField = new JFormattedTextField(new MaskFormatter("##.##.####"));
 		GridBagConstraints gbc_dateContrFormattedTextField = new GridBagConstraints();
 		gbc_dateContrFormattedTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_dateContrFormattedTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -518,7 +555,7 @@ public class WorkForm {
 		gbc_label_3_2_1_1.gridy = 2;
 		newContractPanel.add(label_3_2_1_1, gbc_label_3_2_1_1);
 		
-		textField = new JTextField();
+		textField = new JFormattedTextField(new MaskFormatter("###################"));
 		textField.setColumns(10);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
@@ -550,12 +587,20 @@ public class WorkForm {
 		delivShedTable.setCellSelectionEnabled(true);
 		delivShedTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "", "", "", "", ""},
+				{null, "", "", null, null, ""},
 			},
 			new String[] {
 				"\u2116 \u043F/\u043F", "\u0422\u043E\u0432\u0430\u0440", "\u0412\u0438\u0434 \u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438", "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u043A \u043E\u0442\u0433\u0440\u0443\u0437\u043A\u0435", "\u0426\u0435\u043D\u0430, \u0440\u0443\u0431. \u043A\u043E\u043F.", "\u0414\u0430\u0442\u0430 \u043F\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0442\u043E\u0432\u0430\u0440\u0430"
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, Object.class, Object.class, Integer.class, Double.class, String.class
+			};
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 		delivShedTable.getColumnModel().getColumn(0).setPreferredWidth(48);
 		delivShedTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		delivShedTable.getColumnModel().getColumn(1).setPreferredWidth(120);
@@ -569,6 +614,7 @@ public class WorkForm {
 		delivShedTable.getColumnModel().getColumn(5).setPreferredWidth(165);
 		delivShedTable.getColumnModel().getColumn(5).setMaxWidth(170);
 		scrollPane.setViewportView(delivShedTable);
+		delivShedTable.setValueAt(contrCount, 0, 0);
 		JComboBox<Product> productComboBox = new JComboBox<Product>();
 		for(Product product:controller.getProduct())
 		{
@@ -583,6 +629,10 @@ public class WorkForm {
 		}
 		TableColumn packageColumn = delivShedTable.getColumnModel().getColumn(2);
 		packageColumn.setCellEditor(new DefaultCellEditor(packageComboBox));
+		
+		JFormattedTextField dateDelivFormattedTextField = new JFormattedTextField(new MaskFormatter("##.##.####"));
+		TableColumn dateDelivContractColumn = delivShedTable.getColumnModel().getColumn(5);
+		dateDelivContractColumn.setCellEditor(new DefaultCellEditor(dateDelivFormattedTextField));
 		
 		JButton btnNewContractStrButton = new JButton("Добавить строку");
 		
@@ -697,6 +747,7 @@ public class WorkForm {
 				    
 			}
 		});
+		
 		btnGotoInvoiceList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -704,6 +755,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19617120491862");
 			}
 		});
+		
 		btnShowAllContracts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -711,6 +763,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19671339404383");
 			}
 		});
+		
 		btnCreateNewInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -718,6 +771,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19561014887317");
 			}
 		});
+		
 		btnCreateNewContract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -725,6 +779,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19668433211996");
 			}
 		});
+		
 		btnBackFromContracts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -732,6 +787,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
+		
 		btnExitContract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -739,6 +795,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
+		
 		btnBackToMain.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -746,6 +803,7 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
+		
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -753,38 +811,66 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
+		
 		btnClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 		});
+		
 		btnInsertInvRow.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 DefaultTableModel model = (DefaultTableModel) invRowTable.getModel();
-			     model.addRow(new Object[]{"", "", "","",""});
+				 setInvCount(getInvCount()+1);
+			     model.addRow(new Object[]{getInvCount(), "", "","",""});
 			}
 		});
+		
 		btnDelInvRow.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 DefaultTableModel model = (DefaultTableModel) invRowTable.getModel();
-				 model.removeRow(invRowTable.getSelectedRow());
+				 int index = invRowTable.getSelectedRow();
+				 if(index >= 0);
+				 {
+					model.removeRow(index);
+					int value = index+1;
+					for(int i = index;i < getInvCount() - 1; i++)
+					{
+						invRowTable.setValueAt(value, i, 0);
+						value++;
+					}
+					setInvCount(value - 1);
+				 }
 			}
 		});
+		
 		btnNewContractStrButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DefaultTableModel model = (DefaultTableModel) delivShedTable.getModel();
-			    model.addRow(new Object[]{"", "", "","",""});
+				setContrCount(getContrCount()+1);
+			    model.addRow(new Object[]{getContrCount(),"", "",0, 0.0, ""});
 			}
 		});
 		btnDelContractString.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 DefaultTableModel model = (DefaultTableModel) delivShedTable.getModel();
-				 model.removeRow(delivShedTable.getSelectedRow());
+				 int index = delivShedTable.getSelectedRow();
+				 if(index >= 0);
+				 {
+					model.removeRow(index);
+					int value = index+1;
+					for(int i = index;i < getContrCount() - 1; i++)
+					{
+						delivShedTable.setValueAt(value, i, 0);
+						value++;
+					}
+					setContrCount(value - 1);
+				 }
 			}
 		});
 	}
