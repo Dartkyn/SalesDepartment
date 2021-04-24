@@ -14,7 +14,7 @@ public class measureunit {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name + " " + this.code;
+		return this.name;
 	}
 	
 	public Short getId() {

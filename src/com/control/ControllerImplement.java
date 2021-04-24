@@ -1,5 +1,6 @@
 package com.control;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import test.backend.Bank;
@@ -9,6 +10,7 @@ import test.backend.Contract;
 import test.backend.DeliveryShedule;
 import test.backend.InvoiceHeader;
 import test.backend.InvoiceString;
+import test.backend.MasterOfTables;
 import test.backend.Package;
 import test.backend.Product;
 import test.backend.Subdivision;
@@ -18,8 +20,20 @@ import test.backend.measureunit;
 */
 public class ControllerImplement implements Controller {
 	
-	public ControllerImplement() {
+	public ControllerImplement() throws ClassNotFoundException, SQLException {
 		super();
+		masterOfTables = new MasterOfTables();
+		bankz = masterOfTables.getBankz();
+		citiez = masterOfTables.getCitiez();
+		companiez = masterOfTables.getCompaniez();
+		contractz = masterOfTables.getContractz();
+		delivShedulz = masterOfTables.getDelivShedulz();
+		invHeaderz = masterOfTables.getInvHeaderz();
+		invStringz = masterOfTables.getInvStringz();
+		unitz = masterOfTables.getUnitz();
+		packagez = masterOfTables.getPackagez();
+		productz = masterOfTables.getProductz();
+		subDiviz = masterOfTables.getSubDiviz();
 	}
 	/** Поле список банков*/
 	private List<Bank> bankz;
@@ -43,9 +57,10 @@ public class ControllerImplement implements Controller {
 	private List<Product> productz;
 	/** Поле список подразделений*/
 	private List<Subdivision> subDiviz;
-	public Controller Controller()
+	/** Поле список подразделений*/
+	private MasterOfTables masterOfTables;
+	public Controller Controller() throws ClassNotFoundException, SQLException
 	{
-		// TODO Auto-generated method stub
 		return this;
 	}
 	@Override
@@ -55,62 +70,94 @@ public class ControllerImplement implements Controller {
 
 	@Override
 	public List<City> getCities() {
-		// TODO Auto-generated method stub
-		return null;
+		return citiez;
 	}
 
 	@Override
 	public List<Company> getCompanies() {
 		// TODO Auto-generated method stub
-		return null;
+		return companiez;
 	}
 
 	@Override
 	public List<Contract> getContracts() {
 		// TODO Auto-generated method stub
-		return null;
+		return contractz;
 	}
 
 	@Override
 	public List<DeliveryShedule> getDelivShedule() {
 		// TODO Auto-generated method stub
-		return null;
+		return delivShedulz;
 	}
 
 	@Override
 	public List<InvoiceHeader> getInvHeader() {
 		// TODO Auto-generated method stub
-		return null;
+		return invHeaderz;
 	}
 
 	@Override
 	public List<InvoiceString> getInvString() {
 		// TODO Auto-generated method stub
-		return null;
+		return invStringz;
 	}
 
 	@Override
 	public List<measureunit> getMeasUnit() {
 		// TODO Auto-generated method stub
-		return null;
+		return unitz;
 	}
 
 	@Override
 	public List<Package> getPackage() {
 		// TODO Auto-generated method stub
-		return null;
+		return packagez;
 	}
 
 	@Override
 	public List<Product> getProduct() {
 		// TODO Auto-generated method stub
-		return null;
+		return productz;
 	}
 
 	@Override
 	public List<Subdivision> getSubDivision() {
 		// TODO Auto-generated method stub
-		return null;
+		return subDiviz;
+	}
+	public void setBankz(List<Bank> bankz) {
+		this.bankz = bankz;
+	}
+	public void setCitiez(List<City> citiez) {
+		this.citiez = citiez;
+	}
+	public void setCompaniez(List<Company> companiez) {
+		this.companiez = companiez;
+	}
+	public void setContractz(List<Contract> contractz) {
+		this.contractz = contractz;
+	}
+	public void setDelivShedulz(List<DeliveryShedule> delivShedulz) {
+		this.delivShedulz = delivShedulz;
+	}
+	public void setInvHeaderz(List<InvoiceHeader> invHeaderz) {
+		this.invHeaderz = invHeaderz;
+	}
+	public void setInvStringz(List<InvoiceString> invStringz) {
+		this.invStringz = invStringz;
+	}
+	public void setUnitz(List<measureunit> unitz) {
+		this.unitz = unitz;
+	}
+	public void setPackagez(List<Package> packagez) {
+		this.packagez = packagez;
+	}
+	public void setProductz(List<Product> productz) {
+		this.productz = productz;
+	}
+	public void setSubDiviz(List<Subdivision> subDiviz) {
+		this.subDiviz = subDiviz;
 	}
 	@Override
 	public void createInvoice(String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv) {
@@ -123,12 +170,12 @@ public class ControllerImplement implements Controller {
 		
 	}
 	@Override
-	public void updateInvoice(String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv) {
+	public void updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void updateInvoice(String numberInv, String dateInv, List<InvoiceString> stringsInv) {
+	public void updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv) {
 		// TODO Auto-generated method stub
 		
 	}

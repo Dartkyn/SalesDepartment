@@ -15,7 +15,7 @@ public class Product {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name + " " + this.ProductCode;
+		return this.name + ", " + this.ProductCode;
 	}
 	
 	public Short getId() {

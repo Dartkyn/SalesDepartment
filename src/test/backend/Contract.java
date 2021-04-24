@@ -24,7 +24,7 @@ public class Contract {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.Number + " " + this.ContractDate + " " + this.CompanyID + " " + this.Account + " " + this.CityID+ " " + this.BankID;
+		return this.Number + " " + this.ContractDate + " " + this.CompanyID  + this.CityID+ " " + this.BankID;
 	}
 	
 	public Short getId() {

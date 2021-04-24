@@ -15,7 +15,7 @@ public class Subdivision {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name + " " + this.SubdivisionCode;
+		return this.name + ", " + this.SubdivisionCode;
 	}
 	
 	public Short getId() {

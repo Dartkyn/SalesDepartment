@@ -24,7 +24,7 @@ public class DeliveryShedule {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.DeliveryDate + " " + this.Amount + " " + this.ContractID + " " + this.ProductID + " " + this.Cost + " " + this.PackageID;
+		return  this.DeliveryDate + " " + this.Amount + " " + this.ContractID + " " + this.ProductID;
 	}
 	
 	

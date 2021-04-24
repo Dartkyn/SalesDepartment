@@ -18,7 +18,7 @@ public class Bank {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name + " " + this.CorrespondingAccount + " " + this.BIK + " " + this.INN;
+		return this.name;
 	}
 	
 	public Short getId() {

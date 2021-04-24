@@ -17,7 +17,7 @@ public class InvoiceHeader {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.Number + " " + this.InvoiceDate + " " + this.SubdivisionId;
+		return  this.Number + " " + this.InvoiceDate;
 	}
 	
 	public Short getId() {

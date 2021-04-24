@@ -11,7 +11,7 @@ public class Package {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name;
+		return this.name;
 	}
 	private Short id;
 	private String name;

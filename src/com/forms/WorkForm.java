@@ -25,6 +25,13 @@ import javax.swing.table.TableColumn;
 import com.control.Controller;
 import com.control.ControllerImplement;
 
+import test.backend.Bank;
+import test.backend.City;
+import test.backend.Company;
+import test.backend.Package;
+import test.backend.Product;
+import test.backend.measureunit;
+
 public class WorkForm {
 
 	private JFrame frame;
@@ -238,7 +245,7 @@ public class WorkForm {
 		invRowTable = new JTable(data, coulmnHeader);
 		invRowTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "", "", "", "", "", "", "", ""}
+				{"", "", "", "", "", "", "", "", ""},
 			},
 			new String[] {
 				"\u2116 \u043F/\u043F", "\u0422\u043E\u0432\u0430\u0440", "\u0415\u0434. \u0438\u0437\u043C.", "\u0412\u0438\u0434 \u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438", "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E", "\u041C\u0430\u0441\u0441\u0430 \u0431\u0440\u0443\u0442\u0442\u043E", "\u041C\u0430\u0441\u0441\u0430 \u043D\u0435\u0442\u0442\u043E", "\u0426\u0435\u043D\u0430, \u0440\u0443\u0431. \u043A\u043E\u043F.", "\u041D\u0414\u0421"
@@ -247,9 +254,10 @@ public class WorkForm {
 		invRowTable.getColumnModel().getColumn(0).setPreferredWidth(50);
 		invRowTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		invRowTable.getColumnModel().getColumn(1).setPreferredWidth(152);
-		invRowTable.getColumnModel().getColumn(2).setMaxWidth(75);
-		invRowTable.getColumnModel().getColumn(3).setPreferredWidth(94);
-		invRowTable.getColumnModel().getColumn(3).setMaxWidth(500);
+		invRowTable.getColumnModel().getColumn(2).setPreferredWidth(105);
+		invRowTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		invRowTable.getColumnModel().getColumn(3).setPreferredWidth(105);
+		invRowTable.getColumnModel().getColumn(3).setMaxWidth(200);
 		invRowTable.getColumnModel().getColumn(4).setPreferredWidth(89);
 		invRowTable.getColumnModel().getColumn(4).setMaxWidth(250);
 		invRowTable.getColumnModel().getColumn(5).setPreferredWidth(97);
@@ -260,27 +268,25 @@ public class WorkForm {
 		invRowTable.getColumnModel().getColumn(7).setMaxWidth(250);
 		invRowTable.getColumnModel().getColumn(8).setMaxWidth(75);
 		scrollInvoiceNewPane.setViewportView(invRowTable);
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.addItem("Шуруп, 2344");
-		comboBox.addItem("Винт, 6797");
-		comboBox.addItem("Станок 'Гайки и болты', 5591");
-		comboBox.addItem("");
+		JComboBox<Product> comboBox = new JComboBox<Product>();
+		for(Product product:controller.getProduct())
+		{
+			comboBox.addItem(product);
+		}
 		TableColumn productColumn = invRowTable.getColumnModel().getColumn(1);
 		productColumn.setCellEditor(new DefaultCellEditor(comboBox));
-		JComboBox<String> unitcomboBox = new JComboBox<String>();
-		unitcomboBox.addItem("шт.");
-		unitcomboBox.addItem("кв. м");
-		unitcomboBox.addItem("куб. м");
-		unitcomboBox.addItem("килограмм");
-		unitcomboBox.addItem("тонн");
-		unitcomboBox.addItem("");
+		JComboBox<measureunit> unitcomboBox = new JComboBox<measureunit>();
+		for(measureunit unit:controller.getMeasUnit())
+		{
+			unitcomboBox.addItem(unit);
+		}
 		TableColumn unitColumn = invRowTable.getColumnModel().getColumn(2);
 		unitColumn.setCellEditor(new DefaultCellEditor(unitcomboBox));
-		JComboBox<String> packageInvComboBox = new JComboBox<String>();
-		packageInvComboBox.addItem("Пак. 1 кг");
-		packageInvComboBox.addItem("Карт. коробка");
-		packageInvComboBox.addItem("Паллетный борт");
-		packageInvComboBox.addItem("None");
+		JComboBox<Package> packageInvComboBox = new JComboBox<Package>();
+		for(Package pack: controller.getPackage())
+		{
+			packageInvComboBox.addItem(pack);
+		}
 		TableColumn packageInvColumn = invRowTable.getColumnModel().getColumn(3);
 		packageInvColumn.setCellEditor(new DefaultCellEditor(packageInvComboBox));
 		JButton btnDelInvRow = new JButton("Удалить строку");
@@ -451,11 +457,11 @@ public class WorkForm {
 		gbc_label_3_1_1.gridy = 1;
 		newContractPanel.add(label_3_1_1, gbc_label_3_1_1);
 		
-		JComboBox<String> companyComboBox = new JComboBox<String>();
-		companyComboBox.addItem("");
-		companyComboBox.addItem("ИНТЕРСТРОЙ");
-		companyComboBox.addItem("МОНТАЖ");
-		companyComboBox.addItem("ИНВЕСТ ТРЕЙД");
+		JComboBox<Company> companyComboBox = new JComboBox<Company>();
+		for(Company product:controller.getCompanies())
+		{
+			companyComboBox.addItem(product);
+		}
 		GridBagConstraints gbc_companyComboBox = new GridBagConstraints();
 		gbc_companyComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_companyComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -471,11 +477,12 @@ public class WorkForm {
 		gbc_label_3_2.gridy = 2;
 		newContractPanel.add(label_3_2, gbc_label_3_2);
 		
-		JComboBox<String> cityComboBox = new JComboBox<String>();
-		cityComboBox.addItem("");
-		cityComboBox.addItem("Барнаул");
-		cityComboBox.addItem("Новосибирск");
-		cityComboBox.addItem("Омск");
+		JComboBox<City> cityComboBox = new JComboBox<City>();
+		for(City product:controller.getCities())
+		{
+			cityComboBox.addItem(product);
+		}
+		
 		GridBagConstraints gbc_cityComboBox = new GridBagConstraints();
 		gbc_cityComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_cityComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -491,11 +498,11 @@ public class WorkForm {
 		gbc_label_3_2_1.gridy = 2;
 		newContractPanel.add(label_3_2_1, gbc_label_3_2_1);
 		
-		JComboBox<String> bankComboBox = new JComboBox<String>();
-		bankComboBox.addItem("");
-		bankComboBox.addItem("Сбер");
-		bankComboBox.addItem("ВТБ");
-		bankComboBox.addItem("Tinkoff");
+		JComboBox<Bank> bankComboBox = new JComboBox<Bank>();
+		for(Bank product:controller.getBanks())
+		{
+			bankComboBox.addItem(product);
+		}
 		GridBagConstraints gbc_bankComboBox = new GridBagConstraints();
 		gbc_bankComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_bankComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -551,6 +558,8 @@ public class WorkForm {
 		));
 		delivShedTable.getColumnModel().getColumn(0).setPreferredWidth(48);
 		delivShedTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		delivShedTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+		delivShedTable.getColumnModel().getColumn(1).setMaxWidth(600);
 		delivShedTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 		delivShedTable.getColumnModel().getColumn(2).setMaxWidth(150);
 		delivShedTable.getColumnModel().getColumn(3).setPreferredWidth(146);
@@ -560,18 +569,18 @@ public class WorkForm {
 		delivShedTable.getColumnModel().getColumn(5).setPreferredWidth(165);
 		delivShedTable.getColumnModel().getColumn(5).setMaxWidth(170);
 		scrollPane.setViewportView(delivShedTable);
-		JComboBox<String> productComboBox = new JComboBox<String>();
-		productComboBox.addItem("Шуруп, 2344");
-		productComboBox.addItem("Винт, 6797");
-		productComboBox.addItem("Станок 'Гайки и болты', 5591");
-		productComboBox.addItem("");
+		JComboBox<Product> productComboBox = new JComboBox<Product>();
+		for(Product product:controller.getProduct())
+		{
+			productComboBox.addItem(product);
+		}
 		TableColumn productContractColumn = delivShedTable.getColumnModel().getColumn(1);
 		productContractColumn.setCellEditor(new DefaultCellEditor(productComboBox));
-		JComboBox<String> packageComboBox = new JComboBox<String>();
-		packageComboBox.addItem("Пак. 1 кг");
-		packageComboBox.addItem("Карт. коробка");
-		packageComboBox.addItem("Паллетный борт");
-		packageComboBox.addItem("None");
+		JComboBox<Package> packageComboBox = new JComboBox<Package>();
+		for(Package pack: controller.getPackage())
+		{
+			packageComboBox.addItem(pack);
+		}
 		TableColumn packageColumn = delivShedTable.getColumnModel().getColumn(2);
 		packageColumn.setCellEditor(new DefaultCellEditor(packageComboBox));
 		

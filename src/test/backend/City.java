@@ -11,7 +11,7 @@ public class City {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name;
+		return this.name;
 	}
 	public Short getId() {
 		return id;

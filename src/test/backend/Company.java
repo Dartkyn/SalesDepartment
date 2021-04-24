@@ -19,7 +19,7 @@ public class Company {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.name + " " + this.INN + " " + this.OGRN + " " + this.PhoneNumber + " " + this.Email + " " + this.KPP +  " " + this.OKPO + " " + this.LawAdress;
+		return this.name;
 	}
 	
 	private Short id;

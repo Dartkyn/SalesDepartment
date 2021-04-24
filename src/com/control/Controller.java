@@ -89,18 +89,20 @@ public interface Controller {
 	public void createInvoice(String numberInv, String dateInv, List<InvoiceString> stringsInv);
 	/**
      * Функция обновления внутренней <b>Накладной</b>
+     *  @param invID - ID накладной
      * @param numberInv - номер накладной
      * @param dateInv - дата выписки накладной
      *  @param subDivID - ID подразделения для внутренних накладных
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
-	public void updateInvoice(String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv);
+	public void updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv);
 	/**
      * Функция обновления внешней <b>Накладной</b>
+     *  @param invID - ID накладной
      * @param numberInv - номер накладной
      * @param dateInv - дата выписки накладной
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
-	public void updateInvoice(String numberInv, String dateInv, List<InvoiceString> stringsInv);
+	public void updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv);
 	
 }
