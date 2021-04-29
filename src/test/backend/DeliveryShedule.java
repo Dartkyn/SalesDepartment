@@ -1,7 +1,6 @@
 package test.backend;
 
 public class DeliveryShedule {
-	
 	public DeliveryShedule(Short id, String deliveryDate, Short amount, Short contractID, Short productID, Double cost,
 			Short packageID) {
 		super();

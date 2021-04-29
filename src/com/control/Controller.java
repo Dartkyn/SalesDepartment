@@ -104,5 +104,13 @@ public interface Controller {
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
 	public void updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv);
+	/**
+     * Функция получения списка строк<b>Накладной</b> из данных в таблице
+     *  @param invID - ID накладной
+     * @param numberInv - номер накладной
+     * @param dateInv - дата выписки накладной
+     *  @param stringsInv - список строк накладных, взятых из таблицы
+     */
+	//public void converToInvoiceStrings(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv);
 	
 }

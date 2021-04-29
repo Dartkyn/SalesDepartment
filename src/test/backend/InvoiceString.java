@@ -25,7 +25,6 @@ public class InvoiceString {
 	private Double VAT;
 	private Short StructureUnitID;
 	private Short PackageID;
-	
 	@Override
 	public String toString() 
 	{
