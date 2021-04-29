@@ -11,15 +11,16 @@ import java.util.List;
 public class MasterOfTables {
 	public MasterOfTables() throws ClassNotFoundException, SQLException {
 		super();
-		Connection conn;
+		Connection conn; /** РЎС‚Р°РЅРґР°СЂС‚РЅС‹Рµ С€С‚СѓРєРё РґР»СЏ sqlite */
 		Statement statmt;
 		ResultSet resSet;
 		conn = null;
 		Class.forName("org.sqlite.JDBC");
 		conn = DriverManager.getConnection("jdbc:sqlite:alpha.sqlite3");
-		System.out.println("База Подключена!");
+		System.out.println("Р‘Р°Р·Р° РџРѕРґРєР»СЋС‡РµРЅР°!");
 		statmt = conn.createStatement();
-		List<measureunit> MeasureUnitList  = new LinkedList<>();
+		List<measureunit> MeasureUnitList  = new LinkedList<>(); /**РЎРѕР·РґР°С‘Рј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє
+		СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР»Р°СЃСЃР°, РґРµР»Р°РµРј Р·Р°РїСЂРѕСЃ Рє С‚Р°Р±Р»РёС†Рµ, С†РёРєР»РёС‡РµСЃРєРё Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє Рё С‚Р°Рє РґР»СЏ РІСЃРµС… С‚Р°Р±Р»РёС† */
 		resSet = statmt.executeQuery("SELECT * FROM MeasureUnit");
 		
 		while(resSet.next())
@@ -35,7 +36,7 @@ public class MasterOfTables {
 		System.out.println(test.toString());
 		}
 		
-		System.out.println("Таблица выведена");
+		System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 		
 		List<City> CityList  = new LinkedList<>();
 		resSet = statmt.executeQuery("SELECT * FROM City");
@@ -52,7 +53,7 @@ public class MasterOfTables {
 		System.out.println(test.toString());
 		}
 		
-		System.out.println("Таблица выведена");
+		System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 		
 		List<Bank> BankList  = new LinkedList<>();
 		resSet = statmt.executeQuery("SELECT * FROM Bank");
@@ -72,7 +73,7 @@ public class MasterOfTables {
 		System.out.println(test.toString());
 		}
 		
-		System.out.println("Таблица выведена");
+		System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	
 	  List<Company> CompanyList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM Company");
@@ -96,7 +97,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  
 	  List<Package> PackageList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM Package");
@@ -115,7 +116,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	
 	  List<Product> ProductList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM Product");
@@ -135,7 +136,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  
 	  List<Subdivision> SubdivisionList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM Subdivision");
@@ -155,7 +156,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  
 	  List<InvoiceHeader> InvoiceHeaderList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM InvoiceHeader");
@@ -176,7 +177,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  List<InvoiceString> InvoiceStringList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM InvoiceString");
 
@@ -202,7 +203,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  
 	  List<Contract> ContractList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM Contract");
@@ -226,7 +227,7 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  
 	  List<DeliveryShedule> DeliverySheduleList  = new LinkedList<>();
 	  resSet = statmt.executeQuery("SELECT * FROM DeliveryShedule");
@@ -251,34 +252,37 @@ public class MasterOfTables {
 	   System.out.println(test.toString());
 	  }
 	
-	  System.out.println("Таблица выведена");
+	  System.out.println("РўР°Р±Р»РёС†Р° РІС‹РІРµРґРµРЅР°");
 	  
+	   /** Р’ РёС‚РѕРіРµ СЂР°Р±РѕС‚С‹ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РїРѕР»СѓС‡Р°РµРј СЃРїРёСЃРєРё, Р·Р°РїРѕР»РЅРµРЅРЅС‹Рµ РґР°РЅРЅС‹РјРё РёР· С‚Р°Р±Р»РёС†Р°Рј РёР· Р‘Р”, РєРѕРґ РЅРёР¶Рµ 
+	    * Р·Р°РєСЂС‹РІР°РµС‚ РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
+	    */
 		conn.close();
 		statmt.close();
 		resSet.close();
 				
 	}
-	/** Поле список банков*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє Р±Р°РЅРєРѕРІ*/
 	private List<Bank> bankz;
-	/** Поле список городов*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє РіРѕСЂРѕРґРѕРІ*/
 	private List<City> citiez;
-	/** Поле список компаний*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє РєРѕРјРїР°РЅРёР№*/
 	private List<Company> companiez;
-	/** Поле список договоров*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє РґРѕРіРѕРІРѕСЂРѕРІ*/
 	private List<Contract> contractz;
-	/** Поле список графиков поставки*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє РіСЂР°С„РёРєРѕРІ РїРѕСЃС‚Р°РІРєРё*/
 	private  List<DeliveryShedule> delivShedulz;
-	/** Поле список заголовков накладной*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє Р·Р°РіРѕР»РѕРІРєРѕРІ РЅР°РєР»Р°РґРЅРѕР№*/
 	private  List<InvoiceHeader> invHeaderz;
-	/** Поле список строк накладной*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє РЅР°РєР»Р°РґРЅРѕР№*/
 	private  List<InvoiceString> invStringz;
-	/** Поле список единиц измерений*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє РµРґРёРЅРёС† РёР·РјРµСЂРµРЅРёР№*/
 	private  List<measureunit> unitz;
-	/** Поле список упаковок*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє СѓРїР°РєРѕРІРѕРє*/
 	private  List<Package> packagez;
-	/** Поле список товаров*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ*/
 	private  List<Product> productz;
-	/** Поле список подразделений*/
+	/** РџРѕР»Рµ СЃРїРёСЃРѕРє РїРѕРґСЂР°Р·РґРµР»РµРЅРёР№*/
 	private  List<Subdivision> subDiviz;
 	
 	
