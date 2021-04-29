@@ -167,7 +167,22 @@ public class MasterOfTables {
 		 String Number = resSet.getString("InvoiceNumber");
 		 String InvoiceDate = resSet.getString("InvoiceDate");
 		 Short SubdivisionId = (short) resSet.getInt("SubdivisionId");
-		 InvoiceHeaderList.add(new InvoiceHeader(id,Number,InvoiceDate, SubdivisionId));
+		 if(SubdivisionId != null)
+		 {
+			 for(Subdivision sub:subDiviz)
+				 {
+				 if(sub.getId().equals(SubdivisionId))
+				 {
+					 InvoiceHeaderList.add(new InvoiceHeader(id,Number,InvoiceDate, sub));
+					 break;
+				 }
+				 }
+			  
+		 }
+		 else
+		 {
+			 InvoiceHeaderList.add(new InvoiceHeader(id,Number,InvoiceDate)); 
+		 }
 	  }	
 	
 	  this.invHeaderz = InvoiceHeaderList;//
@@ -190,10 +205,62 @@ public class MasterOfTables {
 		 Double NetWeight = resSet.getDouble("NetWeight");
 		 Double VAT = resSet.getDouble("VAT");
 		 Short InvoiceHeaderID = (short) resSet.getInt("InvoiceHeaderID");
+		 InvoiceHeader invHeader = null;
+		 if(InvoiceHeaderID != null)
+		 {
+			 for(InvoiceHeader sub:invHeaderz)
+				 {
+				 if(sub.getId().equals(InvoiceHeaderID))
+				 {
+					 invHeader = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
 		 Short ProductID = (short) resSet.getInt("ProductID");
+		 Product prod = null;
+		 if(ProductID != null)
+		 {
+			 for(Product sub:productz)
+				 {
+				 if(sub.getId().equals(ProductID))
+				 {
+					 prod = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
 		 Short StructureUnitID = (short) resSet.getInt("StructureUnitID");
+		 measureunit unit = null;
+		 if(StructureUnitID != null)
+		 {
+			 for(measureunit sub:unitz)
+				 {
+				 if(sub.getId().equals(StructureUnitID))
+				 {
+					 unit = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
 		 Short PackageID = (short) resSet.getInt("PackageID");
-		 InvoiceStringList.add(new InvoiceString(id,Amount, CostUnitProduct,InvoiceHeaderID, ProductID, GrossWeight, NetWeight, VAT, StructureUnitID, PackageID));
+		 Package pack = null;
+		 if(PackageID != null)
+		 {
+			 for(Package sub:packagez)
+				 {
+				 if(sub.getId().equals(PackageID))
+				 {
+					 pack = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
+		 InvoiceStringList.add(new InvoiceString(id,Amount, CostUnitProduct,invHeader, prod, GrossWeight, NetWeight, VAT, unit, pack));
 	  }	
 	
 	  this.invStringz = InvoiceStringList;//
@@ -215,9 +282,48 @@ public class MasterOfTables {
 		 String ContractDate = resSet.getString("ContractDate");
 		 String Account = resSet.getString("Account");
 		 Short CompanyID = (short) resSet.getInt("Company_ID");
+		 Company comp = null;
+		 if(CompanyID != null)
+		 {
+			 for(Company sub:companiez)
+				 {
+				 if(sub.getId().equals(CompanyID))
+				 {
+					 comp = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
 		 Short CityID = (short) resSet.getInt("CityID");
+		 City city = null;
+		 if(CityID != null)
+		 {
+			 for(City sub:citiez)
+				 {
+				 if(sub.getId().equals(CityID))
+				 {
+					 city = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
 		 Short BankID = (short) resSet.getInt("BankID");
-		 ContractList.add(new Contract(id,Number, ContractDate, CompanyID, Account, CityID, BankID));
+		 Bank bank = null;
+		 if(BankID != null)
+		 {
+			 for(Bank sub:bankz)
+				 {
+				 if(sub.getId().equals(BankID))
+				 {
+					 bank = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
+		 ContractList.add(new Contract(id,Number, ContractDate, comp, Account, city, bank));
 	  }	
 	  
 	  this.contractz = ContractList;
@@ -239,9 +345,48 @@ public class MasterOfTables {
 		 Double Cost = resSet.getDouble("Cost");
 		 String DeliveryDate = resSet.getString("DeliveryDate");
 		 Short ContractID = (short) resSet.getInt("Contract_ID");
-		 Short ProductID = (short) resSet.getInt("ProductID"); 
-		 Short PackageID = (short) resSet.getInt("PackageID"); 
-		 DeliverySheduleList.add(new DeliveryShedule(id,DeliveryDate, Amount,ContractID, ProductID,Cost, PackageID));
+		 Contract contr = null;
+		 if(ContractID != null)
+		 {
+			 for(Contract sub:contractz)
+				 {
+				 if(sub.getId().equals(ContractID))
+				 {
+					 contr = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
+		 Short ProductID = (short) resSet.getInt("ProductID");
+		 Product prod = null;
+		 if(ProductID != null)
+		 {
+			 for(Product sub:productz)
+				 {
+				 if(sub.getId().equals(ProductID))
+				 {
+					 prod = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
+		 Short PackageID = (short) resSet.getInt("PackageID");
+		 Package pack = null;
+		 if(PackageID != null)
+		 {
+			 for(Package sub:packagez)
+				 {
+				 if(sub.getId().equals(PackageID))
+				 {
+					 pack = sub;
+					 break;
+				 }
+				 }
+			  
+		 }
+		 DeliverySheduleList.add(new DeliveryShedule(id,DeliveryDate, Amount,contr, prod,Cost, pack));
 	  }	
 	
 	  this.delivShedulz = DeliverySheduleList;
