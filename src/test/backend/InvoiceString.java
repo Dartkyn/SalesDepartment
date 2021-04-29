@@ -1,8 +1,8 @@
 package test.backend;
 
 public class InvoiceString {
-	public InvoiceString(Short id, Short amount, Double costUnitProduct, Short invoiceHeaderID, Short productID, Double grossWeight,
-			Double netWeight, Double vAT, Short structureUnitID, Short packageID) {
+	public InvoiceString(Short id, Short amount, Double costUnitProduct, InvoiceHeader invoiceHeaderID, Product productID, Double grossWeight,
+			Double netWeight, Double vAT, measureunit structureUnitID, Package packageID) {
 		super();
 		this.id = id;
 		Amount = amount;
@@ -18,13 +18,13 @@ public class InvoiceString {
 	private Short id;
 	private Short Amount;
 	private Double CostUnitProduct;
-	private Short InvoiceHeaderID;
-	private Short ProductID;
+	private InvoiceHeader InvoiceHeaderID;
+	private Product ProductID;
 	private Double GrossWeight;
 	private Double NetWeight;
 	private Double VAT;
-	private Short StructureUnitID;
-	private Short PackageID;
+	private measureunit StructureUnitID;
+	private Package PackageID;
 	@Override
 	public String toString() 
 	{
@@ -37,16 +37,16 @@ public class InvoiceString {
 	public void setId(Short id) {
 		this.id = id;
 	}
-	public Short getInvoiceHeaderID() {
+	public InvoiceHeader getInvoiceHeaderID() {
 		return InvoiceHeaderID;
 	}
-	public void setInvoiceHeaderID(Short invoiceHeaderID) {
+	public void setInvoiceHeaderID(InvoiceHeader invoiceHeaderID) {
 		InvoiceHeaderID = invoiceHeaderID;
 	}
-	public Short getProductID() {
+	public Product getProductID() {
 		return ProductID;
 	}
-	public void setProductID(Short productID) {
+	public void setProductID(Product productID) {
 		ProductID = productID;
 	}
 	public Double getGrossWeight() {
@@ -67,16 +67,16 @@ public class InvoiceString {
 	public void setNetWeight(Double netWeight) {
 		NetWeight = netWeight;
 	}
-	public Short getStructureUnitID() {
+	public measureunit getStructureUnitID() {
 		return StructureUnitID;
 	}
-	public void setStructureUnitID(Short structureUnitID) {
+	public void setStructureUnitID(measureunit structureUnitID) {
 		StructureUnitID = structureUnitID;
 	}
-	public Short getPackageID() {
+	public Package getPackageID() {
 		return PackageID;
 	}
-	public void setPackageID(Short packageID) {
+	public void setPackageID(Package packageID) {
 		PackageID = packageID;
 	}
 	public Short getAmount() {

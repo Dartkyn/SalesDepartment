@@ -2,17 +2,23 @@ package test.backend;
 
 public class InvoiceHeader {
  
-	public InvoiceHeader(Short id, String number, String invoiceDate, Short subdivisionId) {
+	public InvoiceHeader(Short id, String number, String invoiceDate, Subdivision subdivisionId) {
 		super();
 		this.id = id;
 		Number = number;
 		InvoiceDate = invoiceDate;
 		SubdivisionId = subdivisionId;
 	}
+	public InvoiceHeader(Short id, String number, String invoiceDate) {
+		super();
+		this.id = id;
+		Number = number;
+		InvoiceDate = invoiceDate;
+	}
 	private Short id;
 	private String Number;
 	private String InvoiceDate;
-	private Short SubdivisionId;
+	private Subdivision SubdivisionId;
 	
 	@Override
 	public String toString() 
@@ -38,10 +44,10 @@ public class InvoiceHeader {
 	public void setInvoiceDate(String invoiceDate) {
 		InvoiceDate = invoiceDate;
 	}
-	public Short getSubdivisionId() {
+	public Subdivision getSubdivisionId() {
 		return SubdivisionId;
 	}
-	public void setSubdivisionId(Short subdivisionId) {
+	public void setSubdivisionId(Subdivision subdivisionId) {
 		SubdivisionId = subdivisionId;
 	}
 	

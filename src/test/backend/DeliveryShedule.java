@@ -1,8 +1,8 @@
 package test.backend;
 
 public class DeliveryShedule {
-	public DeliveryShedule(Short id, String deliveryDate, Short amount, Short contractID, Short productID, Double cost,
-			Short packageID) {
+	public DeliveryShedule(Short id, String deliveryDate, Short amount, Contract contractID, Product productID, Double cost,
+			Package packageID) {
 		super();
 		this.id = id;
 		DeliveryDate = deliveryDate;
@@ -15,10 +15,10 @@ public class DeliveryShedule {
 	private Short id;
 	private String DeliveryDate;
 	private Short Amount;
-	private Short ContractID;
-	private Short ProductID;
+	private Contract ContractID;
+	private Product ProductID;
 	private Double Cost;
-	private Short PackageID;
+	private Package PackageID;
 	
 	@Override
 	public String toString() 
@@ -45,16 +45,16 @@ public class DeliveryShedule {
 	public void setAmount(Short amount) {
 		Amount = amount;
 	}
-	public Short getContractID() {
+	public Contract getContractID() {
 		return ContractID;
 	}
-	public void setContractID(Short contractID) {
+	public void setContractID(Contract contractID) {
 		ContractID = contractID;
 	}
-	public Short getProductID() {
+	public Product getProductID() {
 		return ProductID;
 	}
-	public void setProductID(Short productID) {
+	public void setProductID(Product productID) {
 		ProductID = productID;
 	}
 	public Double getCost() {
@@ -63,10 +63,10 @@ public class DeliveryShedule {
 	public void setCost(Double cost) {
 		Cost = cost;
 	}
-	public Short getPackageID() {
+	public Package getPackageID() {
 		return PackageID;
 	}
-	public void setPackageID(Short packageID) {
+	public void setPackageID(Package packageID) {
 		PackageID = packageID;
 	}
 }

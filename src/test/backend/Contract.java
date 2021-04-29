@@ -2,8 +2,8 @@ package test.backend;
 
 public class Contract {
 
-	public Contract(Short id, Short number, String contractDate, Short companyID, String account, Short cityID,
-			Short bankID) {
+	public Contract(Short id, Short number, String contractDate, Company companyID, String account, City cityID,
+			Bank bankID) {
 		super();
 		this.id = id;
 		Number = number;
@@ -16,10 +16,10 @@ public class Contract {
 	private Short id;
 	private Short Number;
 	private String ContractDate;
-	private Short CompanyID;
+	private Company CompanyID;
 	private String Account;
-	private Short CityID;
-	private Short BankID;
+	private City CityID;
+	private Bank BankID;
 	
 	@Override
 	public String toString() 
@@ -45,10 +45,10 @@ public class Contract {
 	public void setContractDate(String contractDate) {
 		ContractDate = contractDate;
 	}
-	public Short getCompanyID() {
+	public Company getCompanyID() {
 		return CompanyID;
 	}
-	public void setCompanyID(Short companyID) {
+	public void setCompanyID(Company companyID) {
 		CompanyID = companyID;
 	}
 	public String getAccount() {
@@ -57,16 +57,16 @@ public class Contract {
 	public void setAccount(String account) {
 		Account = account;
 	}
-	public Short getBankID() {
+	public Bank getBankID() {
 		return BankID;
 	}
-	public void setBankID(Short bankID) {
+	public void setBankID(Bank bankID) {
 		BankID = bankID;
 	}
-	public Short getCityID() {
+	public City getCityID() {
 		return CityID;
 	}
-	public void setCityID(Short cityID) {
+	public void setCityID(City cityID) {
 		CityID = cityID;
 	}
 }
