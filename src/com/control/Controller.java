@@ -1,5 +1,6 @@
 package com.control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import test.backend.Bank;
@@ -79,38 +80,68 @@ public interface Controller {
      *  @param subDivID - ID подразделения для внутренних накладных
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
-	public void createInvoice(String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv);
+	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID);
 	/**
      * Функция создания внешней <b>Накладной</b>
+     * @return созданную шапку накладной
      * @param numberInv - номер накладной
      * @param dateInv - дата выписки накладной
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
-	public void createInvoice(String numberInv, String dateInv, List<InvoiceString> stringsInv);
+	public InvoiceHeader createInvoice(String numberInv, String dateInv);
 	/**
      * Функция обновления внутренней <b>Накладной</b>
+     * @return созданную шапку накладной
      *  @param invID - ID накладной
      * @param numberInv - номер накладной
      * @param dateInv - дата выписки накладной
      *  @param subDivID - ID подразделения для внутренних накладных
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
-	public void updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv);
+	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv);
 	/**
      * Функция обновления внешней <b>Накладной</b>
+     * @return обновленную шапку накладной
      *  @param invID - ID накладной
      * @param numberInv - номер накладной
      * @param dateInv - дата выписки накладной
      *  @param stringsInv - список строк накладных, взятых из таблицы
      */
-	public void updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv);
+	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv);
 	/**
      * Функция получения списка строк<b>Накладной</b> из данных в таблице
-     *  @param invID - ID накладной
-     * @param numberInv - номер накладной
-     * @param dateInv - дата выписки накладной
-     *  @param stringsInv - список строк накладных, взятых из таблицы
+     * @param Short invHeadID - ID шапки накладной
+     *  @param ArrayList<Product> prodList - содержимое таблицы - список продуктов
+     * @param ArrayList<measureunit> - содержимое таблицы - список единиц измерения
+     * @param ArrayList<Package> packageList - содержимое таблицы - список упаковок
+     *  @param ArrayList<Object> amountList - содержимое таблицы - список количеств товара
+     *  @param ArrayList<Object> grossList - содержимое таблицы - список брутто массы товара
+     *  @param ArrayList<Object> netList - содержимое таблицы - список нетто массы товара
+     *  @param ArrayList<Object> costList - содержимое таблицы - список цены за единицу товара
+     *  @param ArrayList<Object> vatList - содержимое таблицы - список НДС на  товар
+     *   @return возвращает <b>List<InvoiceString></b> - сформированный список строк накладной
      */
-	//public void converToInvoiceStrings(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv);
+	public List<InvoiceString> converToInvoiceStrings(InvoiceHeader invHeadID, ArrayList<Product> prodList, ArrayList<measureunit> unitList, ArrayList<Package> packageList,
+			ArrayList<Object> amountList, ArrayList<Object> grossList, ArrayList<Object> netList, ArrayList<Object> costList,
+			ArrayList<Object> vatList);
+	/**
+     * Функция получения <b>Товара</b> по строке 
+     * @param str - строка таблицы, явлеется подстрокой при Product.toString()
+     * @return возвращает Товар
+     */
+	public Product findProduct(String str);
+	/**
+     * Функция получения <b>Единицы измерения</b> по строке 
+     * @param str - строка таблицы, явлеется подстрокой при measureunit.toString()
+     * @return возвращает Товар
+     */
+	public measureunit findUnit(String str);
+	/**
+     * Функция получения <b>Упаковки</b> по строке 
+     * @param str - строка таблицы, явлеется подстрокой при Package.toString()
+     * @return возвращает Товар
+     */
+	public Package findPackage(String str);
+	
 	
 }

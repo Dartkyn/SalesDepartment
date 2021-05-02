@@ -173,7 +173,9 @@ public class MasterOfTables {
 				 {
 				 if(sub.getId().equals(SubdivisionId))
 				 {
-					 InvoiceHeaderList.add(new InvoiceHeader(id,Number,InvoiceDate, sub));
+					 InvoiceHeader invHead = new InvoiceHeader(Number,InvoiceDate, sub);
+					 invHead.setId(id);
+					 InvoiceHeaderList.add(invHead);
 					 break;
 				 }
 				 }
@@ -181,7 +183,9 @@ public class MasterOfTables {
 		 }
 		 else
 		 {
-			 InvoiceHeaderList.add(new InvoiceHeader(id,Number,InvoiceDate)); 
+			 InvoiceHeader invHead = new InvoiceHeader(Number,InvoiceDate);
+			 invHead.setId(id);
+			 InvoiceHeaderList.add(invHead); 
 		 }
 	  }	
 	

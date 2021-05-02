@@ -877,31 +877,35 @@ public class WorkForm {
 		btnSaveInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Class[] columns = new Class[] {
-						Integer.class, Object.class, Object.class, Object.class, 
-						Integer.class, Double.class, Double.class, Double.class, Double.class
-					};
 				ArrayList<Product> prodList = new ArrayList<Product>(invRowTable.getModel().getRowCount());
 				ArrayList<measureunit> unitList = new ArrayList<measureunit>(invRowTable.getModel().getRowCount());
 				ArrayList<Package> packageList = new ArrayList<Package>(invRowTable.getModel().getRowCount());
-				ArrayList<Integer> amountList = new ArrayList<Integer>(invRowTable.getModel().getRowCount());
-				ArrayList<Double> grossList = new ArrayList<Double>(invRowTable.getModel().getRowCount());
-				ArrayList<Double> netList = new ArrayList<Double>(invRowTable.getModel().getRowCount());
-				ArrayList<Double> costList = new ArrayList<Double>(invRowTable.getModel().getRowCount());
-				ArrayList<Double> vatList = new ArrayList<Double>(invRowTable.getModel().getRowCount());
+				ArrayList<Object> amountList = new ArrayList<Object>(invRowTable.getModel().getRowCount());
+				ArrayList<Object> grossList = new ArrayList<Object>(invRowTable.getModel().getRowCount());
+				ArrayList<Object> netList = new ArrayList<Object>(invRowTable.getModel().getRowCount());
+				ArrayList<Object> costList = new ArrayList<Object>(invRowTable.getModel().getRowCount());
+				ArrayList<Object> vatList = new ArrayList<Object>(invRowTable.getModel().getRowCount());
 				for(int i = 0; i< invRowTable.getModel().getRowCount(); i++)
 				{
 					int k = 0;
-					prodList.add(i,(Product) invRowTable.getModel().getValueAt(i, ++k));
-					unitList.add(i,(measureunit) invRowTable.getModel().getValueAt(i, ++k));
-					packageList.add(i,(Package) invRowTable.getModel().getValueAt(i, ++k));
-					amountList.add(i,(Integer) invRowTable.getModel().getValueAt(i, ++k));
-					grossList.add(i,(Double) invRowTable.getModel().getValueAt(i, ++k));
-					netList.add(i,(Double) invRowTable.getModel().getValueAt(i, ++k));
-					costList.add(i,(Double) invRowTable.getModel().getValueAt(i, ++k));
-					vatList.add(i,(Double) invRowTable.getModel().getValueAt(i, ++k));
+					String tempString = invRowTable.getModel().getValueAt(i, ++k).toString();
+					prodList.add(i, controller.findProduct(tempString));
+					tempString = invRowTable.getModel().getValueAt(i, ++k).toString();
+					unitList.add(i,controller.findUnit(tempString));
+					tempString = invRowTable.getModel().getValueAt(i, ++k).toString();
+					packageList.add(i,controller.findPackage(tempString));
+					amountList.add(i, invRowTable.getModel().getValueAt(i, ++k));
+					grossList.add(i,invRowTable.getModel().getValueAt(i, ++k));
+					netList.add(i,invRowTable.getModel().getValueAt(i, ++k));
+					costList.add(i,invRowTable.getModel().getValueAt(i, ++k));
+					vatList.add(i,invRowTable.getModel().getValueAt(i, ++k));
 				}
 				System.out.println(prodList);
+				System.out.println(amountList);
+				System.out.println(grossList);
+				System.out.println(netList);
+				System.out.println(costList);
+				System.out.println(vatList);
 			}
 		});
 	}

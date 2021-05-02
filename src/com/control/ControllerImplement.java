@@ -1,6 +1,7 @@
 package com.control;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import test.backend.Bank;
@@ -159,24 +160,63 @@ public class ControllerImplement implements Controller {
 	public void setSubDiviz(List<Subdivision> subDiviz) {
 		this.subDiviz = subDiviz;
 	}
+
 	@Override
-	public void createInvoice(String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv) {
-		// TODO Auto-generated method stub
-		
+	public Product findProduct(String str) {
+		for(Product prod:productz)
+		{
+			if(prod.toString().contains(str))
+				return prod;
+		}
+		return null;
 	}
 	@Override
-	public void createInvoice(String numberInv, String dateInv, List<InvoiceString> stringsInv) {
-		// TODO Auto-generated method stub
-		
+	public measureunit findUnit(String str) {
+		for(measureunit unit:unitz)
+		{
+			if(unit.toString().contains(str))
+				return unit;
+		}
+		return null;
 	}
 	@Override
-	public void updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv) {
-		// TODO Auto-generated method stub
-		
+	public Package findPackage(String str) {
+		for(Package pack:packagez)
+		{
+			if(pack.toString().contains(str))
+				return pack;
+		}
+		return null;
 	}
 	@Override
-	public void updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv) {
+	public List<InvoiceString> converToInvoiceStrings(InvoiceHeader invHeadID, ArrayList<Product> prodList,
+			ArrayList<measureunit> unitList, ArrayList<Package> packageList, ArrayList<Object> amountList,
+			ArrayList<Object> grossList, ArrayList<Object> netList, ArrayList<Object> costList,
+			ArrayList<Object> vatList) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+	@Override
+	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID) {
+		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv, subDivID);
+		invHeaderz.add(InvHead);
+		return InvHead;
+	}
+	@Override
+	public InvoiceHeader createInvoice(String numberInv, String dateInv) {
+		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv);
+		invHeaderz.add(InvHead);
+		return InvHead;
+	}
+	@Override
+	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID,
+			List<InvoiceString> stringsInv) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, List<InvoiceString> stringsInv) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

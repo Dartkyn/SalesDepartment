@@ -2,16 +2,16 @@ package test.backend;
 
 public class InvoiceHeader {
  
-	public InvoiceHeader(Short id, String number, String invoiceDate, Subdivision subdivisionId) {
+	public InvoiceHeader(String number, String invoiceDate, Subdivision subdivisionId) {
 		super();
-		this.id = id;
+		//this.id = id;
 		Number = number;
 		InvoiceDate = invoiceDate;
 		SubdivisionId = subdivisionId;
 	}
-	public InvoiceHeader(Short id, String number, String invoiceDate) {
+	public InvoiceHeader(String number, String invoiceDate) {
 		super();
-		this.id = id;
+		//this.id = id;
 		Number = number;
 		InvoiceDate = invoiceDate;
 	}
