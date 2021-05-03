@@ -30,6 +30,7 @@ import com.control.ControllerImplement;
 import test.backend.Bank;
 import test.backend.City;
 import test.backend.Company;
+import test.backend.InvoiceHeader;
 import test.backend.Package;
 import test.backend.Product;
 import test.backend.measureunit;
@@ -210,6 +211,7 @@ public class WorkForm {
 		newInvocePanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		numberInvTextField = new JFormattedTextField(new MaskFormatter("3-######-##"));
+		numberInvTextField.setToolTipText("Заполняется в формате ГГГГММДД-№№, где  Г - год, М - месяц, Д - день, а №№ - номер по порядку за день");
 		GridBagConstraints gbc_numberInvTextField = new GridBagConstraints();
 		gbc_numberInvTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_numberInvTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -274,7 +276,7 @@ public class WorkForm {
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, Object.class, Object.class, Object.class, Integer.class, Double.class, Double.class, Double.class, Double.class
+				Integer.class, Object.class, Object.class, Object.class, Short.class, Double.class, Double.class, Double.class, Double.class
 			};
 			@Override
 			public Class getColumnClass(int columnIndex) {
@@ -877,6 +879,7 @@ public class WorkForm {
 		btnSaveInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				InvoiceHeader invHead = new InvoiceHeader(numberInvTextField.getText(), dateInvFormattedTextField.getText());
 				ArrayList<Product> prodList = new ArrayList<Product>(invRowTable.getModel().getRowCount());
 				ArrayList<measureunit> unitList = new ArrayList<measureunit>(invRowTable.getModel().getRowCount());
 				ArrayList<Package> packageList = new ArrayList<Package>(invRowTable.getModel().getRowCount());
@@ -906,6 +909,7 @@ public class WorkForm {
 				System.out.println(netList);
 				System.out.println(costList);
 				System.out.println(vatList);
+				System.out.println(controller.converToInvoiceStrings(invHead, prodList, unitList, packageList, amountList, grossList, netList, costList, vatList));
 			}
 		});
 	}

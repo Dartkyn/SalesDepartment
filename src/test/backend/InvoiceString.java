@@ -1,6 +1,32 @@
 package test.backend;
 
 public class InvoiceString {
+	public InvoiceString(Short id, Short amount, Double costUnitProduct, InvoiceHeader invoiceHeaderID,
+			Product productID, Double grossWeight, Double netWeight, Double vAT, Package packageID) {
+		super();
+		this.id = id;
+		Amount = amount;
+		CostUnitProduct = costUnitProduct;
+		InvoiceHeaderID = invoiceHeaderID;
+		ProductID = productID;
+		GrossWeight = grossWeight;
+		NetWeight = netWeight;
+		VAT = vAT;
+		PackageID = packageID;
+	}
+	public InvoiceString(InvoiceHeader invoiceHeaderID, measureunit structureUnitID, Product productID,
+			Package packageID, Short amount, Double costUnitProduct, Double grossWeight, Double netWeight, Double vAT) {
+		super();
+		InvoiceHeaderID = invoiceHeaderID;
+		StructureUnitID = structureUnitID;
+		ProductID = productID;
+		PackageID = packageID;
+		Amount = amount;
+		CostUnitProduct = costUnitProduct;
+		GrossWeight = grossWeight;
+		NetWeight = netWeight;
+		VAT = vAT;
+	}
 	public InvoiceString(Short id, Short amount, Double costUnitProduct, InvoiceHeader invoiceHeaderID, Product productID, Double grossWeight,
 			Double netWeight, Double vAT, measureunit structureUnitID, Package packageID) {
 		super();
@@ -15,6 +41,18 @@ public class InvoiceString {
 		StructureUnitID = structureUnitID;
 		PackageID = packageID;
 	}
+	public InvoiceString(InvoiceHeader invoiceHeaderID, Product productID, Package packageID, Short amount,
+			Double costUnitProduct, Double grossWeight, Double netWeight, Double vAT) {
+		super();
+		InvoiceHeaderID = invoiceHeaderID;
+		ProductID = productID;
+		PackageID = packageID;
+		Amount = amount;
+		CostUnitProduct = costUnitProduct;
+		GrossWeight = grossWeight;
+		NetWeight = netWeight;
+		VAT = vAT;
+	}
 	private Short id;
 	private Short Amount;
 	private Double CostUnitProduct;
@@ -28,7 +66,7 @@ public class InvoiceString {
 	@Override
 	public String toString() 
 	{
-		return Short.toString(this.id) + " " + this.Amount + " " + this.CostUnitProduct + " " + this.InvoiceHeaderID + " " + this.ProductID + " " + this.GrossWeight + " " + this.NetWeight + " " + this.VAT + " " + this.StructureUnitID + " " + this.PackageID;
+		return this.Amount + " " + this.CostUnitProduct + " " + this.InvoiceHeaderID + " " + this.ProductID + " " + this.GrossWeight + " " + this.NetWeight + " " + this.VAT + " " + this.PackageID;
 	}
 	
 	public Short getId() {

@@ -193,8 +193,14 @@ public class ControllerImplement implements Controller {
 			ArrayList<measureunit> unitList, ArrayList<Package> packageList, ArrayList<Object> amountList,
 			ArrayList<Object> grossList, ArrayList<Object> netList, ArrayList<Object> costList,
 			ArrayList<Object> vatList) {
-		// TODO Auto-generated method stub
-		return null;
+		List<InvoiceString> invStrings = new ArrayList<InvoiceString>();
+		for(int i = 0; i < prodList.size(); i++)
+		{
+			invStrings.add(new InvoiceString(invHeadID, unitList.get(i), prodList.get(i), packageList.get(i), 
+					(Short)amountList.get(i), (Double)costList.get(i), (Double)grossList.get(i), 
+					(Double)netList.get(i), (Double)vatList.get(i)));
+		}
+		return invStrings;
 	}
 	@Override
 	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID) {
