@@ -125,10 +125,11 @@ public interface Controller {
      *  @param ArrayList<Object> costList - содержимое таблицы - список цены за единицу товара
      *  @param ArrayList<Object> vatList - содержимое таблицы - список НДС на  товар
      *   @return возвращает <b>List<InvoiceString></b> - сформированный список строк накладной
+	 * @throws SQLException 
      */
 	public List<InvoiceString> converToInvoiceStrings(InvoiceHeader invHeadID, ArrayList<Product> prodList, ArrayList<measureunit> unitList, ArrayList<Package> packageList,
 			ArrayList<Object> amountList, ArrayList<Object> grossList, ArrayList<Object> netList, ArrayList<Object> costList,
-			ArrayList<Object> vatList);
+			ArrayList<Object> vatList) throws SQLException;
 	/**
      * Функция получения <b>Товара</b> по строке 
      * @param str - строка таблицы, явлеется подстрокой при Product.toString()

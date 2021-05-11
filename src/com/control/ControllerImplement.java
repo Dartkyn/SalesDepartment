@@ -203,14 +203,29 @@ public class ControllerImplement implements Controller {
 	public List<InvoiceString> converToInvoiceStrings(InvoiceHeader invHeadID, ArrayList<Product> prodList,
 			ArrayList<measureunit> unitList, ArrayList<Package> packageList, ArrayList<Object> amountList,
 			ArrayList<Object> grossList, ArrayList<Object> netList, ArrayList<Object> costList,
-			ArrayList<Object> vatList) {
+			ArrayList<Object> vatList) throws SQLException {
 		List<InvoiceString> invStrings = new ArrayList<InvoiceString>();
 		for(int i = 0; i < prodList.size(); i++)
 		{
 			invStrings.add(new InvoiceString(invHeadID, unitList.get(i), prodList.get(i), packageList.get(i), 
 					(Short)amountList.get(i), (Double)costList.get(i), (Double)grossList.get(i), 
 					(Double)netList.get(i), (Double)vatList.get(i)));
+			
+			//StructureUnitID - ЭТО MEASUREUNIT, ЕДИНИЦА ИЗМЕРЕНИЯ!!!!!
+			
+			String tmp = "INSERT INTO 'InvoiceString' ("
+					+ "'Amount', 'CostUnitProduct', 'InvoiceHeaderID', 'ProductID', 'GrossWeight', 'NetWeight', 'VAT', 'StructureUnitID', 'PackageID') "
+					+ "VALUES (" + "'" +
+					amountList.get(i) + "'" +  "," + "'" + costList.get(i)+ "'" + "," + "'" + "1" + "'" +  "," + "'" + prodList.get(i).getId() + "'"
+					+  "," + "'" + grossList.get(i) + "'" +  "," + "'" + netList.get(i) +"'" + "," + "'" + vatList.get(i) + "'" + "," + "'" + unitList.get(i).getId() + "'" +
+							"," + "'" + packageList.get(i).getId() + "'" + ");";
+		
+			System.out.println(tmp);
+			masterOfTables.addToDatabase(tmp);
 		}
+
+	
+	invStringz.addAll(invStrings);
 		return invStrings;
 	}
 	@Override
