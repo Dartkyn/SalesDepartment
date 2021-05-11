@@ -177,7 +177,7 @@ public interface Controller {
      *  @param ArrayList<Object> dateDelivList - содержимое таблицы - дат поставки товаров
      *   @return возвращает <b>List<DeliveryShedule></b> - сформированный список строк графика поставки
      */
-	public List<DeliveryShedule> converToInvoiceStrings(Contract contractID, ArrayList<Product> prodList,ArrayList<Package> packageList,
+	public List<DeliveryShedule> converToDelivSheduls(Contract contractID, ArrayList<Product> prodList,ArrayList<Package> packageList,
 			ArrayList<Object> amountProdList, ArrayList<Object> costList,
 			ArrayList<Object> dateDelivList);
 }

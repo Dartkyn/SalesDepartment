@@ -12,6 +12,16 @@ public class DeliveryShedule {
 		Cost = cost;
 		PackageID = packageID;
 	}
+	public DeliveryShedule(Contract contractID, Product productID, Package packageID, Short amount, Double cost,
+			String deliveryDate) {
+		super();
+		ContractID = contractID;
+		ProductID = productID;
+		PackageID = packageID;
+		Amount = amount;
+		Cost = cost;
+		DeliveryDate = deliveryDate;
+	}
 	private Short id;
 	private String DeliveryDate;
 	private Short Amount;

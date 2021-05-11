@@ -270,14 +270,22 @@ public class ControllerImplement implements Controller {
 	@Override
 	public Contract createContract(String numberContract, String contractDate, Company companyID, String account,
 			City cityID, Bank bankID) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Contract contract = new Contract(numberContract, contractDate, companyID, account, cityID, bankID);
+		contractz.add(contract);
+		return contract;
 	}
 	@Override
-	public List<DeliveryShedule> converToInvoiceStrings(Contract contractID, ArrayList<Product> prodList,
+	public List<DeliveryShedule> converToDelivSheduls(Contract contractID, ArrayList<Product> prodList,
 			ArrayList<Package> packageList, ArrayList<Object> amountProdList, ArrayList<Object> costList,
 			ArrayList<Object> dateDelivList) {
-		// TODO Auto-generated method stub
-		return null;
+		List<DeliveryShedule> delivSheduls = new ArrayList<DeliveryShedule>();
+		for(int i = 0;i < prodList.size(); i++)
+		{
+			delivSheduls.add(new DeliveryShedule(contractID, prodList.get(i), 
+					packageList.get(i), (Short)amountProdList.get(i), 
+					(Double) costList.get(i), (String) dateDelivList.get(i)));
+		}
+		delivShedulz.addAll(delivSheduls);
+		return delivSheduls;
 	}
 }

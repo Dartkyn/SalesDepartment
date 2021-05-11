@@ -31,6 +31,7 @@ import com.control.ControllerImplement;
 import test.backend.Bank;
 import test.backend.City;
 import test.backend.Company;
+import test.backend.Contract;
 import test.backend.InvoiceHeader;
 import test.backend.Package;
 import test.backend.Product;
@@ -599,7 +600,7 @@ public class WorkForm {
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, Object.class, Object.class, Integer.class, Double.class, String.class
+				Integer.class, Object.class, Object.class, Short.class, Double.class, String.class
 			};
 			@Override
 			public Class getColumnClass(int columnIndex) {
@@ -917,7 +918,57 @@ public class WorkForm {
 				System.out.println(netList);
 				System.out.println(costList);
 				System.out.println(vatList);
-				System.out.println(controller.converToInvoiceStrings(invHead, prodList, unitList, packageList, amountList, grossList, netList, costList, vatList));
+				try {
+					System.out.println(controller.converToInvoiceStrings(invHead, prodList, unitList, packageList, amountList, grossList, netList, costList, vatList));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnSaveContract.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Contract contract = null;
+				try {
+					contract = controller.createContract(numberContractTextField.getText(),
+							dateContrFormattedTextField.getText(), companyComboBox.getItemAt(companyComboBox.getSelectedIndex()),
+							textField.getText(), cityComboBox.getItemAt(cityComboBox.getSelectedIndex()), bankComboBox.getItemAt(bankComboBox.getSelectedIndex()));
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				int numberRow = delivShedTable.getModel().getRowCount();
+				ArrayList<Product> prodList = new ArrayList<Product>(numberRow);
+				ArrayList<Package> packageList = new ArrayList<Package>(numberRow);
+				ArrayList<Object> amountList = new ArrayList<Object>(numberRow);
+				ArrayList<Object> costList = new ArrayList<Object>(numberRow);
+				ArrayList<Object> dateDelivList = new ArrayList<Object>(numberRow);
+				for(int i = 0; i< delivShedTable.getModel().getRowCount(); i++)
+				{
+					int k = 0;
+					String tempString = delivShedTable.getModel().getValueAt(i, ++k).toString();
+					prodList.add(i, controller.findProduct(tempString));
+					tempString = delivShedTable.getModel().getValueAt(i, ++k).toString();
+					packageList.add(i,controller.findPackage(tempString));
+					amountList.add(i, delivShedTable.getModel().getValueAt(i, ++k));
+					costList.add(i,delivShedTable.getModel().getValueAt(i, ++k));
+					dateDelivList.add(i,delivShedTable.getModel().getValueAt(i, ++k));
+				}
+				System.out.println(contract);
+				System.out.println(prodList);
+				System.out.println(amountList);
+				System.out.println(costList);
+				System.out.println(dateDelivList);
+				System.out.println(controller.converToDelivSheduls(contract,
+						prodList, 
+						packageList, 
+						amountList,
+						costList, 
+						dateDelivList));
 			}
 		});
 	}
