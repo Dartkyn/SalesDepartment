@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -210,7 +211,7 @@ public class WorkForm {
 		gbc_lblNewLabel_3.gridy = 1;
 		newInvocePanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		numberInvTextField = new JFormattedTextField(new MaskFormatter("3-######-##"));
+		numberInvTextField = new JFormattedTextField(new MaskFormatter("3-########-##"));
 		numberInvTextField.setToolTipText("Заполняется в формате ГГГГММДД-№№, где  Г - год, М - месяц, Д - день, а №№ - номер по порядку за день");
 		GridBagConstraints gbc_numberInvTextField = new GridBagConstraints();
 		gbc_numberInvTextField.insets = new Insets(0, 0, 5, 5);
@@ -464,7 +465,8 @@ public class WorkForm {
 		gbc_label_3.gridy = 1;
 		newContractPanel.add(label_3, gbc_label_3);
 		
-		numberContractTextField = new JFormattedTextField(new MaskFormatter("1-######-##"));
+		numberContractTextField = new JFormattedTextField(new MaskFormatter("1-########-##"));
+		numberContractTextField.setToolTipText("Заполняется в формате ГГГГММДД-№№, где  Г - год, М - месяц, Д - день, а №№ - номер по порядку за день");
 		GridBagConstraints gbc_numberContractTextField = new GridBagConstraints();
 		gbc_numberContractTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_numberContractTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -879,7 +881,13 @@ public class WorkForm {
 		btnSaveInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				InvoiceHeader invHead = new InvoiceHeader(numberInvTextField.getText(), dateInvFormattedTextField.getText());
+				InvoiceHeader invHead = null;
+				try {
+					invHead = controller.createInvoice(numberInvTextField.getText(), dateInvFormattedTextField.getText());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				ArrayList<Product> prodList = new ArrayList<Product>(invRowTable.getModel().getRowCount());
 				ArrayList<measureunit> unitList = new ArrayList<measureunit>(invRowTable.getModel().getRowCount());
 				ArrayList<Package> packageList = new ArrayList<Package>(invRowTable.getModel().getRowCount());

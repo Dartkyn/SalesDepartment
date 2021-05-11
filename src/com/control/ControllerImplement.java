@@ -252,4 +252,17 @@ public class ControllerImplement implements Controller {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Contract createContract(String numberContract, String contractDate, Company companyID, String account,
+			City cityID, Bank bankID) throws SQLException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<DeliveryShedule> converToInvoiceStrings(Contract contractID, ArrayList<Product> prodList,
+			ArrayList<Package> packageList, ArrayList<Object> amountProdList, ArrayList<Object> costList,
+			ArrayList<Object> dateDelivList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

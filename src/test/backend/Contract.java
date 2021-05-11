@@ -2,7 +2,7 @@ package test.backend;
 
 public class Contract {
 
-	public Contract(Short id, Short number, String contractDate, Company companyID, String account, City cityID,
+	public Contract(Short id, String number, String contractDate, Company companyID, String account, City cityID,
 			Bank bankID) {
 		super();
 		this.id = id;
@@ -13,8 +13,17 @@ public class Contract {
 		CityID = cityID;
 		BankID = bankID;
 	}
+	public Contract(String number, String contractDate, Company companyID, String account, City cityID, Bank bankID) {
+		super();
+		Number = number;
+		ContractDate = contractDate;
+		CompanyID = companyID;
+		Account = account;
+		CityID = cityID;
+		BankID = bankID;
+	}
 	private Short id;
-	private Short Number;
+	private String Number;
 	private String ContractDate;
 	private Company CompanyID;
 	private String Account;
@@ -33,10 +42,10 @@ public class Contract {
 	public void setId(Short id) {
 		this.id = id;
 	}
-	public Short getNumber() {
+	public String getNumber() {
 		return Number;
 	}
-	public void setNumber(Short number) {
+	public void setNumber(String number) {
 		Number = number;
 	}
 	public String getContractDate() {

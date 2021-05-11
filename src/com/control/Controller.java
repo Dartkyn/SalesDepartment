@@ -138,16 +138,45 @@ public interface Controller {
 	/**
      * Функция получения <b>Единицы измерения</b> по строке 
      * @param str - строка таблицы, явлеется подстрокой при measureunit.toString()
-     * @return возвращает Товар
+     * @return возвращает Единицу измерения
      */
 	public measureunit findUnit(String str);
 	/**
      * Функция получения <b>Упаковки</b> по строке 
      * @param str - строка таблицы, явлеется подстрокой при Package.toString()
-     * @return возвращает Товар
+     * @return возвращает Упаковку
      */
 	public Package findPackage(String str);
+	/**
+     * Функция получения <b>Заголовка накладной</b> по строке 
+     * @param str - строка таблицы, явлеется подстрокой при invoiceHeader.toString()
+     * @return возвращает Заголовок накладной
+     */
 	public InvoiceHeader findHeader(String str);
-	
-	
+	/**
+     * Функция создания <b>Договора</b>
+     * @param numberContract - номер договора
+     * @param contractDate - дата заключения контракта
+     * @param companyID - ID компании, с которой заключается договор
+     * @param account - список строк накладных, взятых из таблицы
+     * @param cityID - ID города, в котором заключается договор
+     * @param bankID - ID банка
+     * @return возвращает созданный контракт
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+     */
+	public Contract createContract(String numberContract, String contractDate, Company companyID, String account, City cityID, Bank bankID) throws SQLException, ClassNotFoundException;
+	/**
+     * Функция получения списка строк<b>Графика поставки</b> из данных в таблице
+     * @param Short invHeadID - ID шапки накладной
+     *  @param ArrayList<Product> prodList - содержимое таблицы - список продуктов
+     * @param ArrayList<Package> packageList - содержимое таблицы - список упаковок
+     *  @param ArrayList<Object> amountProdList - содержимое таблицы - список количеств товара к отгрузке
+     *  @param ArrayList<Object> costList - содержимое таблицы - список цены за единицу товара
+     *  @param ArrayList<Object> dateDelivList - содержимое таблицы - дат поставки товаров
+     *   @return возвращает <b>List<DeliveryShedule></b> - сформированный список строк графика поставки
+     */
+	public List<DeliveryShedule> converToInvoiceStrings(Contract contractID, ArrayList<Product> prodList,ArrayList<Package> packageList,
+			ArrayList<Object> amountProdList, ArrayList<Object> costList,
+			ArrayList<Object> dateDelivList);
 }

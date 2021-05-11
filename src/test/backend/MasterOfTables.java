@@ -282,7 +282,7 @@ public class MasterOfTables {
 	  while(this.resSet.next())
 	  {
 		 Short id = (short) this.resSet.getInt("Contract_ID");
-		 Short Number = (short) this.resSet.getInt("Number");
+		 String Number = this.resSet.getString("Number");
 		 String ContractDate = this.resSet.getString("ContractDate");
 		 String Account = this.resSet.getString("Account");
 		 Short CompanyID = (short) this.resSet.getInt("Company_ID");
