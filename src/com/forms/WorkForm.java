@@ -35,6 +35,7 @@ import test.backend.Contract;
 import test.backend.InvoiceHeader;
 import test.backend.Package;
 import test.backend.Product;
+import test.backend.Subdivision;
 import test.backend.measureunit;
 
 public class WorkForm {
@@ -190,15 +191,15 @@ public class WorkForm {
 		JPanel newInvocePanel = new JPanel();
 		centerPanel.add(newInvocePanel, "name_19561014887317");
 		GridBagLayout gbl_newInvocePanel = new GridBagLayout();
-		gbl_newInvocePanel.columnWidths = new int[]{0, 0, 0, 151, 0, 0};
+		gbl_newInvocePanel.columnWidths = new int[]{0, 0, 0, 0, 0, 151, 0, 0};
 		gbl_newInvocePanel.rowHeights = new int[]{0, 0, 89, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_newInvocePanel.columnWeights = new double[]{0.01, 1.0, 1.0, 0.0, 1.0, 0.0};
+		gbl_newInvocePanel.columnWeights = new double[]{0.01, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0};
 		gbl_newInvocePanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		newInvocePanel.setLayout(gbl_newInvocePanel);
 		
 		JLabel lblNewLabel_4 = new JLabel("Товарная накладная");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.gridwidth = 4;
+		gbc_lblNewLabel_4.gridwidth = 6;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4.gridx = 1;
 		gbc_lblNewLabel_4.gridy = 0;
@@ -222,11 +223,34 @@ public class WorkForm {
 		newInvocePanel.add(numberInvTextField, gbc_numberInvTextField);
 		numberInvTextField.setColumns(10);
 		
+		JLabel lblNewLabel_3_1 = new JLabel("Подразделение");
+		GridBagConstraints gbc_lblNewLabel_3_1 = new GridBagConstraints();
+		gbc_lblNewLabel_3_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_3_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3_1.gridx = 3;
+		gbc_lblNewLabel_3_1.gridy = 1;
+		newInvocePanel.add(lblNewLabel_3_1, gbc_lblNewLabel_3_1);
+		
+		JComboBox<Subdivision> subDivisComboBox = new JComboBox<Subdivision>();
+		for(Subdivision product:controller.getSubDivision())
+		{
+			subDivisComboBox.addItem(product);
+		}
+		Subdivision sub = null;
+		subDivisComboBox.addItem(sub);
+		subDivisComboBox.setSelectedItem(sub);
+		GridBagConstraints gbc_subDivisComboBox = new GridBagConstraints();
+		gbc_subDivisComboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_subDivisComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_subDivisComboBox.gridx = 4;
+		gbc_subDivisComboBox.gridy = 1;
+		newInvocePanel.add(subDivisComboBox, gbc_subDivisComboBox);
+		
 		JLabel lblNewLabel_4_1 = new JLabel("Дата выписки накладной");
 		GridBagConstraints gbc_lblNewLabel_4_1 = new GridBagConstraints();
 		gbc_lblNewLabel_4_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_4_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4_1.gridx = 3;
+		gbc_lblNewLabel_4_1.gridx = 5;
 		gbc_lblNewLabel_4_1.gridy = 1;
 		newInvocePanel.add(lblNewLabel_4_1, gbc_lblNewLabel_4_1);
 		
@@ -235,7 +259,7 @@ public class WorkForm {
 		GridBagConstraints gbc_dateInvFormattedTextField = new GridBagConstraints();
 		gbc_dateInvFormattedTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_dateInvFormattedTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dateInvFormattedTextField.gridx = 4;
+		gbc_dateInvFormattedTextField.gridx = 6;
 		gbc_dateInvFormattedTextField.gridy = 1;
 		newInvocePanel.add(dateInvFormattedTextField, gbc_dateInvFormattedTextField);
 		JButton btnInsertInvRow = new JButton("Добавить строку");
@@ -250,7 +274,7 @@ public class WorkForm {
 		GridBagConstraints gbc_scrollInvoiceNewPane = new GridBagConstraints();
 		gbc_scrollInvoiceNewPane.gridheight = 9;
 		gbc_scrollInvoiceNewPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollInvoiceNewPane.gridwidth = 5;
+		gbc_scrollInvoiceNewPane.gridwidth = 7;
 		gbc_scrollInvoiceNewPane.gridx = 1;
 		gbc_scrollInvoiceNewPane.gridy = 2;
 		newInvocePanel.add(scrollInvoiceNewPane, gbc_scrollInvoiceNewPane);
@@ -884,8 +908,21 @@ public class WorkForm {
 			public void mouseClicked(MouseEvent e) {
 				InvoiceHeader invHead = null;
 				try {
-					invHead = controller.createInvoice(numberInvTextField.getText(), dateInvFormattedTextField.getText());
+					if(subDivisComboBox.getSelectedItem().equals(null))
+					{
+						invHead = controller.createInvoice(numberInvTextField.getText(), 
+								dateInvFormattedTextField.getText());
+					}
+					else
+					{
+						invHead = controller.createInvoice(numberInvTextField.getText(), 
+								dateInvFormattedTextField.getText(),
+								subDivisComboBox.getItemAt(subDivisComboBox.getSelectedIndex()));
+					}
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
