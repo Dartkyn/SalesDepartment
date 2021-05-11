@@ -1,6 +1,7 @@
 package com.control;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class ControllerImplement implements Controller {
 		productz = masterOfTables.getProductz();
 		subDiviz = masterOfTables.getSubDiviz();
 	}
+	public static Statement statmt;
 	/** Поле список банков*/
 	private List<Bank> bankz;
 	/** Поле список городов*/
@@ -189,6 +191,15 @@ public class ControllerImplement implements Controller {
 		return null;
 	}
 	@Override
+	public InvoiceHeader findHeader(String str) {
+		for(InvoiceHeader invHeader:invHeaderz)
+		{
+			if(invHeader.toString().contains(str))
+				return invHeader;
+		}
+		return null;
+	}
+	@Override
 	public List<InvoiceString> converToInvoiceStrings(InvoiceHeader invHeadID, ArrayList<Product> prodList,
 			ArrayList<measureunit> unitList, ArrayList<Package> packageList, ArrayList<Object> amountList,
 			ArrayList<Object> grossList, ArrayList<Object> netList, ArrayList<Object> costList,
@@ -203,21 +214,37 @@ public class ControllerImplement implements Controller {
 		return invStrings;
 	}
 	@Override
-	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID) {
+	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID) throws SQLException, ClassNotFoundException{
 		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv, subDivID);
 		invHeaderz.add(InvHead);
+		int tmp_id = subDivID.getId(); //Создаём строку tmp для того, чтобы сформировать SQL-запрос
+		String tmp_str_id = Integer.toString(tmp_id); //Достаём из объекта id в виде int
+		//Формируем строку и вызываем метод addToDatabase
+		String tmp = "INSERT INTO 'InvoiceHeader' ('InvoiceNumber', 'InvoiceDate','SubdivisionID') VALUES (" + "'" + numberInv + "'" + "," + "'" + dateInv + "'" +  "," + "'" + tmp_str_id + "'" +");"; 
+		masterOfTables.addToDatabase(tmp);
+		System.out.println("Таблица заполнена");
 		return InvHead;
 	}
 	@Override
-	public InvoiceHeader createInvoice(String numberInv, String dateInv) {
+	public InvoiceHeader createInvoice(String numberInv, String dateInv) throws SQLException {
 		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv);
 		invHeaderz.add(InvHead);
-		return InvHead;
+		//Формируем строку и вызываем метод addToDatabase
+		String tmp = "INSERT INTO 'InvoiceHeader' ('InvoiceNumber', 'InvoiceDate') VALUES (" + "'" + numberInv + "'" + "," + "'" + dateInv + "'" +  "," + ");"; 
+		masterOfTables.addToDatabase(tmp);
+		System.out.println("Таблица заполнена");
+		return InvHead; 
 	}
 	@Override
 	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID,
 			List<InvoiceString> stringsInv) {
-		// TODO Auto-generated method stub
+		//String tmp_str_id = Integer.toString(invID); //Достаём из объекта id в виде int
+		//InvoiceHeader InvHead = findHeader(tmp_str_id);
+		//invHeaderz.set(InvHead);
+		//Формируем строку и вызываем метод addToDatabase
+		//String tmp = "UPDATE 'InvoiceHeader' ('InvoiceNumber', 'InvoiceDate','SubdivisionID') VALUES (" + "'" + numberInv + "'" + "," + "'" + dateInv + "'" +  "," + "'" + tmp_str_id + "'" +");"; 
+		//masterOfTables.addToDatabase(tmp);
+		//System.out.println("Таблица заполнена");
 		return null;
 	}
 	@Override

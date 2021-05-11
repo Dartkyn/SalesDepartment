@@ -9,25 +9,27 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MasterOfTables {
+	private Statement statmt;
+	private ResultSet resSet;
+	private Connection conn;
+	
 	public MasterOfTables() throws ClassNotFoundException, SQLException {
 		super();
-		Connection conn; /** Стандартные штуки для sqlite */
-		Statement statmt;
-		ResultSet resSet;
-		conn = null;
+		/** Стандартные штуки для sqlite */
+		this.conn = null;
 		Class.forName("org.sqlite.JDBC");
-		conn = DriverManager.getConnection("jdbc:sqlite:alpha.sqlite3");
+		this.conn = DriverManager.getConnection("jdbc:sqlite:alpha.sqlite3");
 		System.out.println("База Подключена!");
-		statmt = conn.createStatement();
+		this.statmt = this.conn.createStatement();
 		List<measureunit> MeasureUnitList  = new LinkedList<>(); /**Создаём пустой список
 		экземпляров класса, делаем запрос к таблице, циклически заполняем список и так для всех таблиц */
-		resSet = statmt.executeQuery("SELECT * FROM MeasureUnit");
+		this.resSet = this.statmt.executeQuery("SELECT * FROM MeasureUnit");
 		
-		while(resSet.next())
+		while(this.resSet.next())
 		{
-			 Short id = (short) resSet.getInt("MeasureUnitId");
-			 String name = resSet.getString("MeasureUnitName");
-			 String code = resSet.getString("MeasureUnitCode");
+			 Short id = (short) this.resSet.getInt("MeasureUnitId");
+			 String name = this.resSet.getString("MeasureUnitName");
+			 String code = this.resSet.getString("MeasureUnitCode");
 			 MeasureUnitList.add(new measureunit(id,name,code));
 		}	
 		this.unitz = MeasureUnitList;//
@@ -39,12 +41,12 @@ public class MasterOfTables {
 		System.out.println("Таблица выведена");
 		
 		List<City> CityList  = new LinkedList<>();
-		resSet = statmt.executeQuery("SELECT * FROM City");
+		this.resSet = this.statmt.executeQuery("SELECT * FROM City");
 		
-		while(resSet.next())
+		while(this.resSet.next())
 		{
-			 Short id = (short) resSet.getInt("CityId");
-			 String name = resSet.getString("CityName");
+			 Short id = (short) this.resSet.getInt("CityId");
+			 String name = this.resSet.getString("CityName");
 			 CityList.add(new City(id,name));
 		}	
 		this.citiez = CityList;//
@@ -56,15 +58,15 @@ public class MasterOfTables {
 		System.out.println("Таблица выведена");
 		
 		List<Bank> BankList  = new LinkedList<>();
-		resSet = statmt.executeQuery("SELECT * FROM Bank");
+		this.resSet = this.statmt.executeQuery("SELECT * FROM Bank");
 		
-		while(resSet.next())
+		while(this.resSet.next())
 		{
-			 Short id = (short) resSet.getInt("BankId");
-			 String name = resSet.getString("BankName");
-			 String CorrespondingAccount = resSet.getString("CorrespondingAccount");
-			 String BIK = resSet.getString("BIK");
-			 String INN = resSet.getString("INN");
+			 Short id = (short) this.resSet.getInt("BankId");
+			 String name = this.resSet.getString("BankName");
+			 String CorrespondingAccount = this.resSet.getString("CorrespondingAccount");
+			 String BIK = this.resSet.getString("BIK");
+			 String INN = this.resSet.getString("INN");
 			 BankList.add(new Bank(id,name,CorrespondingAccount,BIK,INN));
 		}	
 		this.bankz = BankList;//
@@ -76,19 +78,19 @@ public class MasterOfTables {
 		System.out.println("Таблица выведена");
 	
 	  List<Company> CompanyList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM Company");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM Company");
 	
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("Company_Id");
-		 String name = resSet.getString("Name");
-		 String INN = resSet.getString("INN");
-		 String OGRN = resSet.getString("OGRN");
-		 String PhoneNumber = resSet.getString("PhoneNumber");
-		 String Email = resSet.getString("Email");
-		 String KPP = resSet.getString("KPP");
-		 String OKPO = resSet.getString("OKPO");
-		 String LawAdress = resSet.getString("LawAdress");
+		 Short id = (short) this.resSet.getInt("Company_Id");
+		 String name = this.resSet.getString("Name");
+		 String INN = this.resSet.getString("INN");
+		 String OGRN = this.resSet.getString("OGRN");
+		 String PhoneNumber = this.resSet.getString("PhoneNumber");
+		 String Email = this.resSet.getString("Email");
+		 String KPP = this.resSet.getString("KPP");
+		 String OKPO = this.resSet.getString("OKPO");
+		 String LawAdress = this.resSet.getString("LawAdress");
 		 CompanyList.add(new Company(id,name,INN, OGRN, PhoneNumber, Email, KPP, OKPO, LawAdress));
 	  }	
 	this.companiez = CompanyList;//
@@ -100,12 +102,12 @@ public class MasterOfTables {
 	  System.out.println("Таблица выведена");
 	  
 	  List<Package> PackageList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM Package");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM Package");
 	
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("PackageId");
-		 String name = resSet.getString("PackageName");
+		 Short id = (short) this.resSet.getInt("PackageId");
+		 String name = this.resSet.getString("PackageName");
 		 PackageList.add(new Package(id,name));
 	  }	
 	 
@@ -119,13 +121,13 @@ public class MasterOfTables {
 	  System.out.println("Таблица выведена");
 	
 	  List<Product> ProductList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM Product");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM Product");
 	
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("ProductId");
-		 String name = resSet.getString("ProductName");
-		 String ProductCode = resSet.getString("ProductCode");
+		 Short id = (short) this.resSet.getInt("ProductId");
+		 String name = this.resSet.getString("ProductName");
+		 String ProductCode = this.resSet.getString("ProductCode");
 		 ProductList.add(new Product(id,name, ProductCode));
 	  }	
 	
@@ -139,13 +141,13 @@ public class MasterOfTables {
 	  System.out.println("Таблица выведена");
 	  
 	  List<Subdivision> SubdivisionList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM Subdivision");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM Subdivision");
 	
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("SubdivisionId");
-		 String name = resSet.getString("SubdivisionName");
-		 String SubdivisionCode = resSet.getString("SubdivisionCode");
+		 Short id = (short) this.resSet.getInt("SubdivisionId");
+		 String name = this.resSet.getString("SubdivisionName");
+		 String SubdivisionCode = this.resSet.getString("SubdivisionCode");
 		 SubdivisionList.add(new Subdivision(id,name, SubdivisionCode));
 	  }	
 	
@@ -159,14 +161,14 @@ public class MasterOfTables {
 	  System.out.println("Таблица выведена");
 	  
 	  List<InvoiceHeader> InvoiceHeaderList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM InvoiceHeader");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM InvoiceHeader");
 	
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("InvoiceHeaderId");
-		 String Number = resSet.getString("InvoiceNumber");
-		 String InvoiceDate = resSet.getString("InvoiceDate");
-		 Short SubdivisionId = (short) resSet.getInt("SubdivisionId");
+		 Short id = (short) this.resSet.getInt("InvoiceHeaderId");
+		 String Number = this.resSet.getString("InvoiceNumber");
+		 String InvoiceDate = this.resSet.getString("InvoiceDate");
+		 Short SubdivisionId = (short) this.resSet.getInt("SubdivisionId");
 		 if(SubdivisionId != null)
 		 {
 			 for(Subdivision sub:subDiviz)
@@ -196,17 +198,17 @@ public class MasterOfTables {
 	
 	  System.out.println("Таблица выведена");
 	  List<InvoiceString> InvoiceStringList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM InvoiceString");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM InvoiceString");
 
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("InvoiceStringID");
-		 Short Amount = (short) resSet.getInt("Amount");
-		 Double CostUnitProduct = resSet.getDouble("CostUnitProduct");
-		 Double GrossWeight = resSet.getDouble("GrossWeight");
-		 Double NetWeight = resSet.getDouble("NetWeight");
-		 Double VAT = resSet.getDouble("VAT");
-		 Short InvoiceHeaderID = (short) resSet.getInt("InvoiceHeaderID");
+		 Short id = (short) this.resSet.getInt("InvoiceStringID");
+		 Short Amount = (short) this.resSet.getInt("Amount");
+		 Double CostUnitProduct = this.resSet.getDouble("CostUnitProduct");
+		 Double GrossWeight = this.resSet.getDouble("GrossWeight");
+		 Double NetWeight = this.resSet.getDouble("NetWeight");
+		 Double VAT = this.resSet.getDouble("VAT");
+		 Short InvoiceHeaderID = (short) this.resSet.getInt("InvoiceHeaderID");
 		 InvoiceHeader invHeader = null;
 		 if(InvoiceHeaderID != null)
 		 {
@@ -220,7 +222,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short ProductID = (short) resSet.getInt("ProductID");
+		 Short ProductID = (short) this.resSet.getInt("ProductID");
 		 Product prod = null;
 		 if(ProductID != null)
 		 {
@@ -234,7 +236,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short StructureUnitID = (short) resSet.getInt("StructureUnitID");
+		 Short StructureUnitID = (short) this.resSet.getInt("StructureUnitID");
 		 measureunit unit = null;
 		 if(StructureUnitID != null)
 		 {
@@ -248,7 +250,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short PackageID = (short) resSet.getInt("PackageID");
+		 Short PackageID = (short) this.resSet.getInt("PackageID");
 		 Package pack = null;
 		 if(PackageID != null)
 		 {
@@ -275,15 +277,15 @@ public class MasterOfTables {
 	  System.out.println("Таблица выведена");
 	  
 	  List<Contract> ContractList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM Contract");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM Contract");
 
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("Contract_ID");
-		 Short Number = (short) resSet.getInt("Number");
-		 String ContractDate = resSet.getString("ContractDate");
-		 String Account = resSet.getString("Account");
-		 Short CompanyID = (short) resSet.getInt("Company_ID");
+		 Short id = (short) this.resSet.getInt("Contract_ID");
+		 Short Number = (short) this.resSet.getInt("Number");
+		 String ContractDate = this.resSet.getString("ContractDate");
+		 String Account = this.resSet.getString("Account");
+		 Short CompanyID = (short) this.resSet.getInt("Company_ID");
 		 Company comp = null;
 		 if(CompanyID != null)
 		 {
@@ -297,7 +299,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short CityID = (short) resSet.getInt("CityID");
+		 Short CityID = (short) this.resSet.getInt("CityID");
 		 City city = null;
 		 if(CityID != null)
 		 {
@@ -311,7 +313,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short BankID = (short) resSet.getInt("BankID");
+		 Short BankID = (short) this.resSet.getInt("BankID");
 		 Bank bank = null;
 		 if(BankID != null)
 		 {
@@ -338,15 +340,15 @@ public class MasterOfTables {
 	  System.out.println("Таблица выведена");
 	  
 	  List<DeliveryShedule> DeliverySheduleList  = new LinkedList<>();
-	  resSet = statmt.executeQuery("SELECT * FROM DeliveryShedule");
+	  this.resSet = this.statmt.executeQuery("SELECT * FROM DeliveryShedule");
 
-	  while(resSet.next())
+	  while(this.resSet.next())
 	  {
-		 Short id = (short) resSet.getInt("DeliverySheduleID");
-		 Short Amount = (short) resSet.getInt("Amount");
-		 Double Cost = resSet.getDouble("Cost");
-		 String DeliveryDate = resSet.getString("DeliveryDate");
-		 Short ContractID = (short) resSet.getInt("Contract_ID");
+		 Short id = (short) this.resSet.getInt("DeliverySheduleID");
+		 Short Amount = (short) this.resSet.getInt("Amount");
+		 Double Cost = this.resSet.getDouble("Cost");
+		 String DeliveryDate = this.resSet.getString("DeliveryDate");
+		 Short ContractID = (short) this.resSet.getInt("Contract_ID");
 		 Contract contr = null;
 		 if(ContractID != null)
 		 {
@@ -360,7 +362,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short ProductID = (short) resSet.getInt("ProductID");
+		 Short ProductID = (short) this.resSet.getInt("ProductID");
 		 Product prod = null;
 		 if(ProductID != null)
 		 {
@@ -374,7 +376,7 @@ public class MasterOfTables {
 				 }
 			  
 		 }
-		 Short PackageID = (short) resSet.getInt("PackageID");
+		 Short PackageID = (short) this.resSet.getInt("PackageID");
 		 Package pack = null;
 		 if(PackageID != null)
 		 {
@@ -404,9 +406,9 @@ public class MasterOfTables {
 	   /** В итоге работы конструктора получаем списки, заполненные данными из таблицам из БД, код ниже 
 	    * закрывает подключение к БД
 	    */
-		conn.close();
-		statmt.close();
-		resSet.close();
+		//this.conn.close();
+		//this.statmt.close();
+		//this.resSet.close();
 				
 	}
 	/** Поле список банков*/
@@ -498,5 +500,13 @@ public class MasterOfTables {
 	}
 	public void setSubDiviz(List<Subdivision> subDiviz) {
 		this.subDiviz = subDiviz;
+	}
+	public void addToDatabase(String tmp) throws SQLException {
+		/**
+		 * Функция добавления строки в базу данных
+		 * @param tmp - сформированная в ControllerImplement строка SQL-запроса INSERT
+		 */
+		statmt.execute(tmp);
+		System.out.println("Запись " + tmp + " успешно добавлена в базу данных.");
 	}
 }

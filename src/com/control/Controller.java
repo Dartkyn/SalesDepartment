@@ -1,5 +1,6 @@
 package com.control;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,16 +80,19 @@ public interface Controller {
      * @param dateInv - дата выписки накладной
      *  @param subDivID - ID подразделения для внутренних накладных
      *  @param stringsInv - список строк накладных, взятых из таблицы
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
      */
-	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID);
+	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID) throws SQLException, ClassNotFoundException;
 	/**
      * Функция создания внешней <b>Накладной</b>
      * @return созданную шапку накладной
      * @param numberInv - номер накладной
      * @param dateInv - дата выписки накладной
      *  @param stringsInv - список строк накладных, взятых из таблицы
+     *  @throws SQLException
      */
-	public InvoiceHeader createInvoice(String numberInv, String dateInv);
+	public InvoiceHeader createInvoice(String numberInv, String dateInv) throws SQLException;
 	/**
      * Функция обновления внутренней <b>Накладной</b>
      * @return созданную шапку накладной
@@ -97,8 +101,9 @@ public interface Controller {
      * @param dateInv - дата выписки накладной
      *  @param subDivID - ID подразделения для внутренних накладных
      *  @param stringsInv - список строк накладных, взятых из таблицы
+	 * @throws SQLException 
      */
-	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv);
+	public InvoiceHeader updateInvoice(Short invID, String numberInv, String dateInv, Short subDivID, List<InvoiceString> stringsInv) ;
 	/**
      * Функция обновления внешней <b>Накладной</b>
      * @return обновленную шапку накладной
@@ -142,6 +147,7 @@ public interface Controller {
      * @return возвращает Товар
      */
 	public Package findPackage(String str);
+	public InvoiceHeader findHeader(String str);
 	
 	
 }
