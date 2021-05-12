@@ -187,7 +187,7 @@ public interface Controller {
 	public List<Contract> getFiltredContracts();
 	/**
      * Функция получения отфильтрованного списка <b>Заголовков накладной</b>
-     * @return возвращает список всех заголовков накладной из базы
+     * @return возвращает отфильтрованный список заголовков накладной из базы
      */
 	public List<InvoiceHeader> getFiltredInvHeader();
 }

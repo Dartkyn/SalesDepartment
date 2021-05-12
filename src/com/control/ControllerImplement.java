@@ -290,12 +290,12 @@ public class ControllerImplement implements Controller {
 	}
 	@Override
 	public List<Contract> getFiltredContracts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Contract> resultContr = contractz;
+		return resultContr;
 	}
 	@Override
 	public List<InvoiceHeader> getFiltredInvHeader() {
-		// TODO Auto-generated method stub
-		return null;
+		List<InvoiceHeader> resultInvHeader = invHeaderz;
+		return resultInvHeader;
 	}
 }

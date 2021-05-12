@@ -449,7 +449,7 @@ public class WorkForm {
 		allInvTable.getColumnModel().getColumn(0).setPreferredWidth(38);
 		allInvTable.getColumnModel().getColumn(0).setMaxWidth(500);
 		DefaultTableModel modelAllInvHead = (DefaultTableModel) allInvTable.getModel();
-		for(InvoiceHeader invHead:controller.getInvHeader())
+		for(InvoiceHeader invHead:controller.getFiltredInvHeader())
 		{	countAllInv++;
 			String[] str= new String[]{countAllInv.toString(), invHead.getNumber(), invHead.getInvoiceDate()};
 			modelAllInvHead.addRow(str);
@@ -775,7 +775,7 @@ public class WorkForm {
 		allContractTable.getColumnModel().getColumn(0).setPreferredWidth(43);
 		allContractTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		DefaultTableModel modelAllContract = (DefaultTableModel) allContractTable.getModel();
-		for(Contract contract:controller.getContracts())
+		for(Contract contract:controller.getFiltredContracts())
 		{	countAllContract++;
 			String[] str= new String[]{countAllContract.toString(), contract.getNumber(), contract.getContractDate(),
 					contract.getCompanyID().getName()};
