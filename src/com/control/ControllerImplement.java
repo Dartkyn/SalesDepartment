@@ -288,4 +288,14 @@ public class ControllerImplement implements Controller {
 		delivShedulz.addAll(delivSheduls);
 		return delivSheduls;
 	}
+	@Override
+	public List<Contract> getFiltredContracts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<InvoiceHeader> getFiltredInvHeader() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
