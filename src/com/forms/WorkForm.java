@@ -800,6 +800,9 @@ public class WorkForm {
 		gbc_btnBackFromContracts.gridx = 0;
 		gbc_btnBackFromContracts.gridy = 3;
 		showContractPanel.add(btnBackFromContracts, gbc_btnBackFromContracts);
+		/**
+		Обработчик кнопки перехода на экран создания накладной
+		 */
 		btnInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -808,7 +811,9 @@ public class WorkForm {
 				    
 			}
 		});
-		
+		/**
+		Обработчик кнопки перехода на экран просмотра накладных
+		 */
 		btnGotoInvoiceList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -816,7 +821,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19617120491862");
 			}
 		});
-		
+		/**
+		Обработчик кнопки перехода на экран просмотра договоров
+		 */
 		btnShowAllContracts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -824,7 +831,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19671339404383");
 			}
 		});
-		
+		/**
+		Обработчик кнопки перехода на экран создания накладной
+		 */
 		btnCreateNewInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -832,7 +841,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19561014887317");
 			}
 		});
-		
+		/**
+		Обработчик кнопки перехода на экран создания договора
+		 */
 		btnCreateNewContract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -840,7 +851,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_19668433211996");
 			}
 		});
-		
+		/**
+		Обработчик кнопки выхода на главный экран
+		 */
 		btnBackFromContracts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -848,7 +861,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
-		
+		/**
+		Обработчик кнопки выхода на главный экран
+		 */
 		btnExitContract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -856,7 +871,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
-		
+		/**
+		Обработчик кнопки выхода на главный экран
+		 */
 		btnBackToMain.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -864,7 +881,9 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
-		
+		/**
+		Обработчик кнопки выхода на главный экран
+		 */
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -872,14 +891,18 @@ public class WorkForm {
 			    cl.show(centerPanel, "name_62424711994489");
 			}
 		});
-		
+		/**
+		Обработчик кнопки закрытия приложения
+		 */
 		btnClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 		});
-		
+		/**
+		Обработчик кнопки добавления строки  накладной
+		 */
 		btnInsertInvRow.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -888,7 +911,9 @@ public class WorkForm {
 			     model.addRow(new Object[]{getInvCount(), "", "","",""});
 			}
 		});
-		
+		/**
+		Обработчик кнопки удаления строки  накладной
+		 */
 		btnDelInvRow.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -907,7 +932,9 @@ public class WorkForm {
 				 }
 			}
 		});
-		
+		/**
+		Обработчик кнопки добавления строки графика поставки
+		 */
 		btnNewContractStrButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -916,6 +943,9 @@ public class WorkForm {
 			    model.addRow(new Object[]{getContrCount(),"", "",0, 0.0, ""});
 			}
 		});
+		/**
+		Обработчик кнопки удаления строки графика поставки
+		 */
 		btnDelContractString.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -934,6 +964,9 @@ public class WorkForm {
 				 }
 			}
 		});
+		/**
+		Обработчик кнопки сохранения накладной
+		 */
 		btnSaveInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -997,6 +1030,9 @@ public class WorkForm {
 				}
 			}
 		});
+		/**
+		Обработчик кнопки сохранения договора
+		 */
 		btnSaveContract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

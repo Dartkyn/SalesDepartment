@@ -180,4 +180,14 @@ public interface Controller {
 	public List<DeliveryShedule> converToDelivSheduls(Contract contractID, ArrayList<Product> prodList,ArrayList<Package> packageList,
 			ArrayList<Object> amountProdList, ArrayList<Object> costList,
 			ArrayList<Object> dateDelivList);
+	/**
+     * Функция получения списка отфильтрованного списка <b>Договоров</b>
+     * @return возвращает список всех отфильтрованных договоров из базы
+     */
+	public List<Contract> getFiltredContracts();
+	/**
+     * Функция получения отфильтрованного списка <b>Заголовков накладной</b>
+     * @return возвращает список всех заголовков накладной из базы
+     */
+	public List<InvoiceHeader> getFiltredInvHeader();
 }
