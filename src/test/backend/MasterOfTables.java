@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.control.Controller;
+
 public class MasterOfTables {
 	private Statement statmt;
 	private ResultSet resSet;
@@ -508,5 +510,31 @@ public class MasterOfTables {
 		 */
 		statmt.execute(tmp);
 		System.out.println("Запись " + tmp + " успешно добавлена в базу данных.");
+	}
+	public InvoiceHeader readHeader(InvoiceHeader tmpHeader) throws SQLException
+	{
+		this.resSet = this.statmt.executeQuery("SELECT * FROM `InvoiceHeader` ORDER BY `InvoiceHeaderID` DESC LIMIT 1");
+		Short tmp_id = (short) this.resSet.getInt("InvoiceHeaderID");
+		String tmp_number = this.resSet.getString("InvoiceNumber");
+	    String tmp_invoicedate = this.resSet.getString("InvoiceDate");
+	    Short tmp_SubdivisionId = (short) this.resSet.getInt("SubdivisionID");
+	    tmpHeader.setId(tmp_id);
+	    tmpHeader.setNumber(tmp_number);
+	    tmpHeader.setInvoiceDate(tmp_invoicedate);
+	    tmpHeader.setSubdivisionId(Controller.findSubdivision(tmp_SubdivisionId));
+	    return tmpHeader;
+	}
+	public InvoiceHeader readContract(Contract tmpContract) throws SQLException
+	{
+		this.resSet = this.statmt.executeQuery("SELECT * FROM `Contract` ORDER BY `Contract_ID` DESC LIMIT 1");
+		Short tmp_id = (short) this.resSet.getInt("Contract_ID");
+		String tmp_number = this.resSet.getString("Number");
+	    String tmp_invoicedate = this.resSet.getString("InvoiceDate");
+	    Short tmp_SubdivisionId = (short) this.resSet.getInt("SubdivisionID");
+	    tmpHeader.setId(tmp_id);
+	    tmpHeader.setNumber(tmp_number);
+	    tmpHeader.setInvoiceDate(tmp_invoicedate);
+	    tmpHeader.setSubdivisionId(Controller.findSubdivision(tmp_SubdivisionId));
+	    return tmpHeader;
 	}
 }

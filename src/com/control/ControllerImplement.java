@@ -59,7 +59,7 @@ public class ControllerImplement implements Controller {
 	/** Поле список товаров*/
 	private List<Product> productz;
 	/** Поле список подразделений*/
-	private List<Subdivision> subDiviz;
+	private static List<Subdivision> subDiviz;
 	/** Поле список подразделений*/
 	private MasterOfTables masterOfTables;
 	public Controller Controller() throws ClassNotFoundException, SQLException
@@ -181,6 +181,14 @@ public class ControllerImplement implements Controller {
 		}
 		return null;
 	}
+	public static Subdivision findSubdivision(Short id) {
+		for(Subdivision sub:subDiviz)
+		{
+			if(sub.getId().equals(id))
+				return sub;
+		}
+		return null;
+	}
 	@Override
 	public Package findPackage(String str) {
 		for(Package pack:packagez)
@@ -216,7 +224,7 @@ public class ControllerImplement implements Controller {
 			String tmp = "INSERT INTO 'InvoiceString' ("
 					+ "'Amount', 'CostUnitProduct', 'InvoiceHeaderID', 'ProductID', 'GrossWeight', 'NetWeight', 'VAT', 'StructureUnitID', 'PackageID') "
 					+ "VALUES (" + "'" +
-					amountList.get(i) + "'" +  "," + "'" + costList.get(i)+ "'" + "," + "'" + "1" + "'" +  "," + "'" + prodList.get(i).getId() + "'"
+					amountList.get(i) + "'" +  "," + "'" + costList.get(i)+ "'" + "," + "'" + invHeadID.getId() + "'" +  "," + "'" + prodList.get(i).getId() + "'"
 					+  "," + "'" + grossList.get(i) + "'" +  "," + "'" + netList.get(i) +"'" + "," + "'" + vatList.get(i) + "'" + "," + "'" + unitList.get(i).getId() + "'" +
 							"," + "'" + packageList.get(i).getId() + "'" + ");";
 		
@@ -230,23 +238,25 @@ public class ControllerImplement implements Controller {
 	}
 	@Override
 	public InvoiceHeader createInvoice(String numberInv, String dateInv, Subdivision subDivID) throws SQLException, ClassNotFoundException{
-		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv, subDivID);
-		invHeaderz.add(InvHead);
 		int tmp_id = subDivID.getId(); //Создаём строку tmp для того, чтобы сформировать SQL-запрос
 		String tmp_str_id = Integer.toString(tmp_id); //Достаём из объекта id в виде int
 		//Формируем строку и вызываем метод addToDatabase
 		String tmp = "INSERT INTO 'InvoiceHeader' ('InvoiceNumber', 'InvoiceDate','SubdivisionID') VALUES (" + "'" + numberInv + "'" + "," + "'" + dateInv + "'" +  "," + "'" + tmp_str_id + "'" +");"; 
 		masterOfTables.addToDatabase(tmp);
 		System.out.println("Таблица заполнена");
+		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv, subDivID);
+		InvHead = masterOfTables.readHeader(InvHead);
+		invHeaderz.add(InvHead);
 		return InvHead;
 	}
 	@Override
 	public InvoiceHeader createInvoice(String numberInv, String dateInv) throws SQLException {
-		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv);
-		invHeaderz.add(InvHead);
 		//Формируем строку и вызываем метод addToDatabase
 		String tmp = "INSERT INTO 'InvoiceHeader' ('InvoiceNumber', 'InvoiceDate') VALUES (" + "'" + numberInv + "'" + "," + "'" + dateInv + "'" +  "," + ");"; 
-		masterOfTables.addToDatabase(tmp);
+		masterOfTables.addToDatabase(tmp);		
+		InvoiceHeader InvHead = new InvoiceHeader(numberInv, dateInv);
+		InvHead = masterOfTables.readHeader(InvHead);
+		invHeaderz.add(InvHead);
 		System.out.println("Таблица заполнена");
 		return InvHead; 
 	}
@@ -271,19 +281,43 @@ public class ControllerImplement implements Controller {
 	public Contract createContract(String numberContract, String contractDate, Company companyID, String account,
 			City cityID, Bank bankID) throws SQLException, ClassNotFoundException {
 		Contract contract = new Contract(numberContract, contractDate, companyID, account, cityID, bankID);
+		int company_tmp_id = companyID.getId(); 
+		String company_str_id = Integer.toString(company_tmp_id); //Достаём из объекта id в виде int
+		int city_tmp_id = cityID.getId(); 
+		String city_str_id = Integer.toString(city_tmp_id); //Достаём из объекта id в виде int
+		int bank_tmp_id = bankID.getId(); 
+		String bank_str_id = Integer.toString(bank_tmp_id); //Достаём из объекта id в виде int
+		//Создаём строку tmp для того, чтобы сформировать SQL-запрос
+		//Формируем строку и вызываем метод addToDatabase
+		String tmp = "INSERT INTO 'Contract' ('Number', 'ContractDate','Company_ID', 'Account', 'CityID', 'BankID') "
+				+ "VALUES (" + "'" + numberContract + "'" + "," + "'" + contractDate + "'" +  "," + "'" + company_str_id + "'"
+				+ "," + "'" + account + "'" + "," + "'"+ city_str_id + "'" + "," + "'" + bank_str_id + "'"+");"; 
+		System.out.println(tmp);
+		masterOfTables.addToDatabase(tmp);
+		System.out.println("Таблица заполнена");
+		
 		contractz.add(contract);
 		return contract;
 	}
 	@Override
 	public List<DeliveryShedule> converToDelivSheduls(Contract contractID, ArrayList<Product> prodList,
 			ArrayList<Package> packageList, ArrayList<Object> amountProdList, ArrayList<Object> costList,
-			ArrayList<Object> dateDelivList) {
+			ArrayList<Object> dateDelivList) throws SQLException {
 		List<DeliveryShedule> delivSheduls = new ArrayList<DeliveryShedule>();
 		for(int i = 0;i < prodList.size(); i++)
 		{
 			delivSheduls.add(new DeliveryShedule(contractID, prodList.get(i), 
 					packageList.get(i), (Short)amountProdList.get(i), 
 					(Double) costList.get(i), (String) dateDelivList.get(i)));
+			
+			String tmp = "INSERT INTO 'DeliveryShedule' ("
+					+ "'DeliveryDate', 'Amount', 'Contract_ID', 'ProductID', 'Cost', 'PackageID') "
+					+ "VALUES (" + "'" + dateDelivList.get(i) + "'" +  "," + "'" + amountProdList.get(i)+ "'" +  "," + "'" + contractID.getId() + "'"
+					+  "," + "'" + prodList.get(i).getId() + "'" +  "," + "'" + costList.get(i) +"'" + "," 
+					+ "'" + packageList.get(i).getId() + "'" + ");";
+		
+			System.out.println(tmp);
+			masterOfTables.addToDatabase(tmp);
 		}
 		delivShedulz.addAll(delivSheduls);
 		return delivSheduls;

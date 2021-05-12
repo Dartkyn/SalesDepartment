@@ -176,10 +176,11 @@ public interface Controller {
      *  @param ArrayList<Object> costList - содержимое таблицы - список цены за единицу товара
      *  @param ArrayList<Object> dateDelivList - содержимое таблицы - дат поставки товаров
      *   @return возвращает <b>List<DeliveryShedule></b> - сформированный список строк графика поставки
+	 * @throws SQLException 
      */
 	public List<DeliveryShedule> converToDelivSheduls(Contract contractID, ArrayList<Product> prodList,ArrayList<Package> packageList,
 			ArrayList<Object> amountProdList, ArrayList<Object> costList,
-			ArrayList<Object> dateDelivList);
+			ArrayList<Object> dateDelivList) throws SQLException;
 	/**
      * Функция получения списка отфильтрованного списка <b>Договоров</b>
      * @return возвращает список всех отфильтрованных договоров из базы
@@ -190,4 +191,7 @@ public interface Controller {
      * @return возвращает отфильтрованный список заголовков накладной из базы
      */
 	public List<InvoiceHeader> getFiltredInvHeader();
+	public static Subdivision findSubdivision(Short id) {
+		return null;
+	}
 }
