@@ -46,11 +46,13 @@ public class WorkForm {
 	private JTable allInvTable;
 	private JFormattedTextField numberContractTextField;
 	private JTable delivShedTable;
-	private JTable table_1;
+	private JTable allContractTable;
 	private JFormattedTextField textField;
 	private static Controller controller;
 	private int invCount = 1;
 	private int contrCount = 1;
+	private Integer countAllInv = 0;
+	private Integer countAllContract = 0;
 	public int getContrCount() {
 		return contrCount;
 	}
@@ -426,27 +428,32 @@ public class WorkForm {
 				"Дата выписки накладной"
 				};
 		String[][] dataInv= {
-				{"","",""},
-				{"","",""},
-				{"","",""},
-				{"","",""},
 				{"","",""}
 				};
 		allInvTable = new JTable(dataInv,coulmnInvHeader);
 		allInvTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "", ""},
-				{"", "", ""},
-				{"", "", ""},
-				{"", "", ""},
-				{"", "", ""},
 			},
 			new String[] {
 				"\u2116 \u043F/\u043F", "\u041D\u043E\u043C\u0435\u0440 \u043D\u0430\u043A\u043B\u0430\u0434\u043D\u043E\u0439", "\u0414\u0430\u0442\u0430 \u0432\u044B\u043F\u0438\u0441\u043A\u0438 \u043D\u0430\u043A\u043B\u0430\u0434\u043D\u043E\u0439"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		allInvTable.getColumnModel().getColumn(0).setPreferredWidth(38);
 		allInvTable.getColumnModel().getColumn(0).setMaxWidth(500);
+		DefaultTableModel modelAllInvHead = (DefaultTableModel) allInvTable.getModel();
+		for(InvoiceHeader invHead:controller.getInvHeader())
+		{	countAllInv++;
+			String[] str= new String[]{countAllInv.toString(), invHead.getNumber(), invHead.getInvoiceDate()};
+			modelAllInvHead.addRow(str);
+		}
 		allInvScrollPane.setViewportView(allInvTable);
 		
 		JButton btnCreateNewInvoice = new JButton("Добавить накладную");
@@ -749,8 +756,32 @@ public class WorkForm {
 				{"","",""},
 				{"","",""}
 				};
-		table_1 = new JTable(dataContract, coulmnContractHeader);
-		scrollPane_1.setViewportView(table_1);
+		allContractTable = new JTable(dataContract, coulmnContractHeader);
+		allContractTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"\u2116 \u043F/\u043F", "\u041D\u043E\u043C\u0435\u0440 \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430", "\u041D\u043E\u043C\u0435\u0440 \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430", "\u041E\u0440\u0433\u0430\u043D\u0438\u0437\u0430\u0446\u0438\u044F"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, true
+			};
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		allContractTable.getColumnModel().getColumn(0).setPreferredWidth(43);
+		allContractTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		DefaultTableModel modelAllContract = (DefaultTableModel) allContractTable.getModel();
+		for(Contract contract:controller.getContracts())
+		{	countAllContract++;
+			String[] str= new String[]{countAllContract.toString(), contract.getNumber(), contract.getContractDate(),
+					contract.getCompanyID().getName()};
+			modelAllContract.addRow(str);
+		}
+		scrollPane_1.setViewportView(allContractTable);
 		
 		JButton btnCreateNewContract = new JButton("Добавить договор");
 
@@ -926,6 +957,9 @@ public class WorkForm {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				countAllInv++;
+				String[] str= new String[]{countAllInv.toString(), invHead.getNumber(), invHead.getInvoiceDate()};
+				modelAllInvHead.addRow(str);
 				ArrayList<Product> prodList = new ArrayList<Product>(invRowTable.getModel().getRowCount());
 				ArrayList<measureunit> unitList = new ArrayList<measureunit>(invRowTable.getModel().getRowCount());
 				ArrayList<Package> packageList = new ArrayList<Package>(invRowTable.getModel().getRowCount());
@@ -978,6 +1012,10 @@ public class WorkForm {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				countAllContract++;
+				String[] str= new String[]{countAllContract.toString(), contract.getNumber(), contract.getContractDate(),
+						contract.getCompanyID().getName()};
+				modelAllContract.addRow(str);
 				int numberRow = delivShedTable.getModel().getRowCount();
 				ArrayList<Product> prodList = new ArrayList<Product>(numberRow);
 				ArrayList<Package> packageList = new ArrayList<Package>(numberRow);
