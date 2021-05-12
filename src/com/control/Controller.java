@@ -194,4 +194,12 @@ public interface Controller {
 	public static Subdivision findSubdivision(Short id) {
 		return null;
 	}
+	public static Company findCompany(Short id) {
+		return null;
+	}
+	public static City findCity(Short id) {return null;}
+	public static Bank findBank(Short id) {
+		return null;
+	}
+	
 }

@@ -524,17 +524,23 @@ public class MasterOfTables {
 	    tmpHeader.setSubdivisionId(Controller.findSubdivision(tmp_SubdivisionId));
 	    return tmpHeader;
 	}
-	public InvoiceHeader readContract(Contract tmpContract) throws SQLException
+	public Contract readContract(Contract tmpContract) throws SQLException
 	{
 		this.resSet = this.statmt.executeQuery("SELECT * FROM `Contract` ORDER BY `Contract_ID` DESC LIMIT 1");
 		Short tmp_id = (short) this.resSet.getInt("Contract_ID");
 		String tmp_number = this.resSet.getString("Number");
-	    String tmp_invoicedate = this.resSet.getString("InvoiceDate");
-	    Short tmp_SubdivisionId = (short) this.resSet.getInt("SubdivisionID");
-	    tmpHeader.setId(tmp_id);
-	    tmpHeader.setNumber(tmp_number);
-	    tmpHeader.setInvoiceDate(tmp_invoicedate);
-	    tmpHeader.setSubdivisionId(Controller.findSubdivision(tmp_SubdivisionId));
-	    return tmpHeader;
+	    String tmp_contractdate = this.resSet.getString("ContractDate");
+	    String tmp_contractAccount = this.resSet.getString("Account");
+	    Short tmp_CompanyID = (short) this.resSet.getInt("Company_ID");
+	    Short tmp_CityID = (short) this.resSet.getInt("CityID");
+	    Short tmp_BankID = (short) this.resSet.getInt("BankID");
+	    tmpContract.setId(tmp_id);
+	    tmpContract.setNumber(tmp_number);
+	    tmpContract.setAccount(tmp_contractAccount);
+	    tmpContract.setContractDate(tmp_contractdate);
+	    tmpContract.setCompanyID(Controller.findCompany(tmp_CompanyID));
+	    tmpContract.setCityID(Controller.findCity(tmp_CityID));
+	    tmpContract.setBankID(Controller.findBank(tmp_BankID));
+	    return tmpContract;
 	}
 }

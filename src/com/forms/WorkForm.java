@@ -971,8 +971,9 @@ public class WorkForm {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				InvoiceHeader invHead = null;
+				Boolean fl = subDivisComboBox.getSelectedItem() == null;
 				try {
-					if(subDivisComboBox.getSelectedItem().equals(null))
+					if(fl)
 					{
 						invHead = controller.createInvoice(numberInvTextField.getText(), 
 								dateInvFormattedTextField.getText());
@@ -1074,12 +1075,17 @@ public class WorkForm {
 				System.out.println(amountList);
 				System.out.println(costList);
 				System.out.println(dateDelivList);
-				System.out.println(controller.converToDelivSheduls(contract,
-						prodList, 
-						packageList, 
-						amountList,
-						costList, 
-						dateDelivList));
+				try {
+					System.out.println(controller.converToDelivSheduls(contract,
+							prodList, 
+							packageList, 
+							amountList,
+							costList, 
+							dateDelivList));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}

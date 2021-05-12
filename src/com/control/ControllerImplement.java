@@ -39,11 +39,11 @@ public class ControllerImplement implements Controller {
 	}
 	public static Statement statmt;
 	/** Поле список банков*/
-	private List<Bank> bankz;
+	private static List<Bank> bankz;
 	/** Поле список городов*/
-	private List<City> citiez;
+	private static List<City> citiez;
 	/** Поле список компаний*/
-	private List<Company> companiez;
+	private static List<Company> companiez;
 	/** Поле список договоров*/
 	private List<Contract> contractz;
 	/** Поле список графиков поставки*/
@@ -189,6 +189,30 @@ public class ControllerImplement implements Controller {
 		}
 		return null;
 	}
+	public static Company findCompany(Short id) {
+		for(Company sub:companiez)
+		{
+			if(sub.getId().equals(id))
+				return sub;
+		}
+		return null;
+	}
+	public static City findCity(Short id) {
+		for(City sub:citiez)
+		{
+			if(sub.getId().equals(id))
+				return sub;
+		}
+		return null;
+	}
+	public static Bank findBank(Short id) {
+		for(Bank sub:bankz)
+		{
+			if(sub.getId().equals(id))
+				return sub;
+		}
+		return null;
+	}
 	@Override
 	public Package findPackage(String str) {
 		for(Package pack:packagez)
@@ -295,7 +319,7 @@ public class ControllerImplement implements Controller {
 		System.out.println(tmp);
 		masterOfTables.addToDatabase(tmp);
 		System.out.println("Таблица заполнена");
-		
+		contract = masterOfTables.readContract(contract);
 		contractz.add(contract);
 		return contract;
 	}
